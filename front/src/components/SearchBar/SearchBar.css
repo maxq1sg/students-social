@@ -1,0 +1,18 @@
+.input-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.search-icon {
+  position: absolute;
+  color: purple;
+  top: 51%;
+  transform: translateY(-50%);
+  left: 5px;
+}
+.avatar {
+  height: 100px;
+  background-color: orange;
+}

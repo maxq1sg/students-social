@@ -1,0 +1,15 @@
+.link-name {
+  color: white;
+  text-decoration: none;
+}
+.activeLink{
+    color:yellow
+}
+
+.arrow{
+  color:white
+}
+.icon{
+  padding-right: 5px;
+  transform: translateY(4px);
+}
