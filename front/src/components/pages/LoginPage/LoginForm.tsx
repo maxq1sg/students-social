@@ -24,6 +24,10 @@ const FormInput = styled.input.attrs(
   border: 1px solid grey;
   margin-bottom: 15px;
 `;
+
+const FormInputPassword = styled(FormInput).attrs({
+  type: "password",
+})``;
 const FormSubmit = styled.button.attrs(({ disabled }) => ({
   type: "submit",
   disabled,
@@ -34,7 +38,7 @@ const FormSubmit = styled.button.attrs(({ disabled }) => ({
   border-radius: 5px;
   background: #1877f2;
   color: white;
-  text-transform:uppercase;
+  text-transform: uppercase;
   outline: none;
   opacity: ${({ disabled }) => (disabled ? 0.7 : 1)};
   border: none;
@@ -71,11 +75,7 @@ const LoginForm = () => {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Введите пароль"
       />
-      <FormSubmit
-        onClick={() => {
-        }}
-        disabled={loading}
-      >
+      <FormSubmit onClick={() => {}} disabled={loading}>
         {loading ? "Выполняется вход" : "войти"}
       </FormSubmit>
     </FormWrapper>

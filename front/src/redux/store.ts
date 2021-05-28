@@ -11,6 +11,7 @@ import {teachersReducer} from "./reducers/teachersReducer"
 import { getCoursesReducer } from './reducers/getCoursesRedcuer';
 import { singleCourseReducer } from './reducers/getSingleCourseReducer';
 import { searchReducer } from './reducers/searchReducer';
+import { getUserReducer } from './reducers/getUserReducer';
 
 const saga = createSagaMiddleware()
 
@@ -37,7 +38,8 @@ const rootReducer = combineReducers({
     teachers: teachersReducer,
     courses:getCoursesReducer,
     singleCourse: singleCourseReducer,
-    searchResults: searchReducer
+    searchResults: searchReducer,
+    profile:getUserReducer
 })
 const store = createStore(rootReducer,initialState,composeWithDevTools(applyMiddleware(saga)))
 saga.run(rootWatcher)

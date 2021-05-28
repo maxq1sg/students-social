@@ -1,16 +1,16 @@
 import express from "express";
 import pkg from "googleapis";
+import protect from "../../middleware/protect.js";
 import { getSpreedSheetId, parseSchedule } from "./scheduleParse.js";
 const { google } = pkg;
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.post("/", protect, async (req, res) => {
   try {
+    console.log("inside");
     const { year, short } = req.body;
-    // if (!year && !short) {
 
-    // } else {
     const auth = new google.auth.GoogleAuth({
       keyFile: "credentials.json",
       scopes: "https://www.googleapis.com/auth/spreadsheets",
@@ -29,7 +29,6 @@ router.post("/", async (req, res) => {
 
     const schedule = parseSchedule(values);
     res.json(schedule);
-    // }
   } catch (error) {
     res
       .status(500)

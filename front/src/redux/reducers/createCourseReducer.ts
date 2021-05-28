@@ -17,7 +17,6 @@ function fetchCreateCourse(data:ICourse){
 }
 
 function* postCourseWorker(action:any){
-    console.log(action.payload)
     try {
        yield put({type:ECreateCourseActionType.CREATE_COURSE_REQUEST})
        const {data} = yield call(fetchCreateCourse,action.payload)

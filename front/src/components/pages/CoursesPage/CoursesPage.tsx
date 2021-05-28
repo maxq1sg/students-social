@@ -7,10 +7,12 @@ import { IUser, ICourse } from "../../../redux/reducers/types";
 import Loader from "../../Loader/Loader";
 import styled from "styled-components";
 import Message from "../../Message/Messgae";
+import { Helmet } from "react-helmet";
 
 export const GridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-rows: 1fr;
   grid-gap: 10px;
   padding: 10px;
 `;
@@ -28,9 +30,16 @@ const CoursesPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: EGetCoursesActionType.GET_COURSES, payload: user?.id });
+
+    return () => {
+      dispatch({ type: EGetCoursesActionType.COURSES_RESET });
+    };
   }, []);
   return (
     <div>
+      <Helmet>
+        <title>Мои курсы</title>
+      </Helmet>
       {loading && <Loader border="8px" width={"96px"} />}
       {done ? (
         courses.length ? (

@@ -1,4 +1,5 @@
 import express from "express";
+import protect from "../middleware/protect.js";
 import Course from "../models/Course.js";
 import Group from "../models/Group.js";
 import User from "../models/User.js";

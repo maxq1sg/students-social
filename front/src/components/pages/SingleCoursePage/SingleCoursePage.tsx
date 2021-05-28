@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router";
+import { useHistory, useLocation, useParams } from "react-router";
 import { ESingleCourseActionType } from "../../../redux/reducers/getSingleCourseReducer";
 import { IUser } from "../../../redux/reducers/types";
 import { RootState } from "../../../redux/store";
 import { ISingleCourseState } from "../../../redux/reducers/getSingleCourseReducer";
 import Loader from "../../Loader/Loader";
+import { Helmet } from "react-helmet";
 
 const SingleCoursePage = () => {
   const history = useHistory();
@@ -23,14 +24,23 @@ const SingleCoursePage = () => {
       payload: { user: user?.id, course: courseId },
     });
   }, []);
+  const location = useLocation();
   useEffect(() => {
     if (done && error) {
-      history.push(`/courses/access/${courseId}`);
+      history.push(`/courses/access/${courseId}`, { from: location.pathname });
     }
-  }, [done]);
-  return <div>
-      {loading&&<Loader border={"10px"} width={"90px"}/>}
-      {done && course && <div>добро пожаловать</div>}</div>;
+  });
+
+  // }, [done]);
+  return (
+    <>
+      <Helmet>
+        <title>Курс</title>
+      </Helmet>
+      {loading && <Loader />}
+      {done && course && <div>добро пожаловать</div>}
+    </>
+  );
 };
 
 export default SingleCoursePage;

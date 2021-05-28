@@ -1,5 +1,6 @@
 import { Avatar, makeStyles } from "@material-ui/core";
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 const useStyles = makeStyles(() => ({
   avatar: {
@@ -9,15 +10,18 @@ const useStyles = makeStyles(() => ({
 const AvaContainer = styled.div`
   margin: 0 2px;
 `;
-const PrepodAva = ({ name }: { name: string }) => {
+const LittleAva = ({ name, id }: { name: string; id: string }) => {
+  console.log(id);
   const classes = useStyles();
   return (
     <AvaContainer>
-      <Avatar className={classes.avatar} title={name}>
-        {name[0].toUpperCase()}
-      </Avatar>
+      <Link className="link" to={`/${id}`}>
+        <Avatar className={classes.avatar} title={name}>
+          {name[0].toUpperCase()}
+        </Avatar>
+      </Link>
     </AvaContainer>
   );
 };
 
-export default PrepodAva;
+export default LittleAva;

@@ -2,6 +2,7 @@ import express from "express";
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import Group from "../models/Group.js";
+import protect from "../middleware/protect.js";
 const router = express.Router();
 
 router.post("/", async (req, res) => {

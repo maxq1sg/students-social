@@ -6,6 +6,7 @@ import { RootState } from "../../../redux/store";
 import Loader from "../../Loader/Loader";
 import Message from "../../Message/Messgae";
 import SingleDay from "./SingleDay/SingleDay";
+import { Helmet } from "react-helmet";
 
 const ScheduleWrapper = styled.div`
   display: grid;
@@ -32,13 +33,20 @@ const SchedulePage = () => {
         payload: {
           year: user?.group?.year,
           short: user?.group?.short,
+          token: user?.token,
         },
       });
+    }
+    return ()=>{
+      dispatch({type:EScheduleActionType.RESET_SCHEDULE})
     }
   }, []);
   return (
     <>
-      {loading && <Loader border="10px" width="100px" />}
+      <Helmet>
+        <title>Расписание</title>
+      </Helmet>
+      {loading && <Loader />}
       {error && <Message severity="error">{error}</Message>}
       <ScheduleWrapper>
         {schedule?.length &&

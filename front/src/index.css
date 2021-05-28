@@ -27,6 +27,16 @@ p {
   max-width: 1050px;
   width: 100%;
   position: absolute;
-  bottom:-70px
+  bottom: -70px;
+}
+.other_button {
+  width: 100%;
+  padding: 10px 0;
 }
 
+.send-message__button{
+  margin-top: 10px;
+}
+.link{
+  text-decoration: none;
+}

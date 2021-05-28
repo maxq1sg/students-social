@@ -4,24 +4,31 @@ import styled from "styled-components";
 import pant from "../../images/marco-pantani.jpg";
 import { ICourse } from "../../redux/reducers/types";
 import StyledButton from "../StyledButton/StyledButton";
-import PrepodAva from "./PrepodAva";
-const SingleCourseWrapper = styled.div`
-  height: 300px;
+import LittleAva from "./LittleAva";
+export const SingleCourseWrapper = styled.div`
   border-radius: 10px;
   background: white;
   padding: 10px;
+  position: relative;
+  min-height: 400px;
 `;
-const CourseImage = styled.div`
+export const CourseImage = styled.div`
   background: url(${pant}) center/cover no-repeat;
-  height: 100px;
+  height: 200px;
   border-radius: 10px;
 `;
-const AvaContainer = styled.div`
+export const AvaContainer = styled.div`
+  margin: 10px 0;
   display: flex;
   flex-direction: rows;
   justify-content: end;
 `;
-const CourseName = styled.div`
+export const ButtonWrapper = styled.div`
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+`;
+export const CourseName = styled.div`
   color: #0d3670;
   font-weight: bold;
   font-size: 20px;
@@ -29,22 +36,26 @@ const CourseName = styled.div`
 `;
 
 const SingleCourse = ({ course }: { course: ICourse }) => {
-  console.log(course);
-  const history = useHistory()
-  const redirectClickHandler=(e:SyntheticEvent)=>{
-    history.push(`/courses/${course._id}`)
-  }
+  const history = useHistory();
+  const redirectClickHandler = (e: SyntheticEvent) => {
+    history.push(`/courses/${course._id}`);
+  };
+  console.log(course.teachers)
   return (
     <SingleCourseWrapper>
       <CourseImage />
       <AvaContainer>
         {course.teachers.map((teacher) => (
-          <PrepodAva name={teacher.fullName} />
+          <LittleAva name={teacher.fullName} id={teacher._id} />
         ))}
       </AvaContainer>
       <CourseName>{course.name}</CourseName>
       <div>{course.description}</div>
-      <StyledButton onClick={redirectClickHandler} disabled={false}>перейти к курсу</StyledButton>
+      <ButtonWrapper>
+        <StyledButton onClick={redirectClickHandler} disabled={false}>
+          перейти к курсу
+        </StyledButton>
+      </ButtonWrapper>
     </SingleCourseWrapper>
   );
 };

@@ -12,11 +12,13 @@ import SingleCourse from "../../Course/SingleCourse";
 import Loader from "../../Loader/Loader";
 import Message from "../../Message/Messgae";
 import { GridContainer } from "../CoursesPage/CoursesPage";
+import { Helmet } from "react-helmet";
 
 const SearchResults = styled.div`
   font-size: 1.5em;
   font-weight: bold;
   color: #0d3670;
+  padding-bottom:15px;
 `;
 const CourseSearchPage = () => {
   const { keyword } = useParams<{ keyword: string }>();
@@ -30,24 +32,33 @@ const CourseSearchPage = () => {
     dispatch({
       type: ESearchActionType.SEARCH,
       payload: {
-        resultType: "course",
+        resultType: "courses",
         keyword,
       },
     });
   }, [keyword]);
   return (
     <>
-      <SearchResults>Результаты поиска</SearchResults>
-      {loading && <Loader width="98px" border="10px" />}
-      {finish && searchResults.length == 0 ? (
-        <Message severity="info">Нет результатов поиска</Message>
-      ) : (
+      <Helmet>
+        <title>Результаты поиска: {keyword}</title>
+      </Helmet>
+      {loading && <Loader />}
+      {finish ? searchResults.length !== 0?(
+        <>
+        <SearchResults>Результаты поиска</SearchResults>
         <GridContainer>
           {searchResults.map((result: any) => (
             <SingleCourse course={result} />
           ))}
         </GridContainer>
-      )}
+        </>
+      ) : (
+        <>
+        <SearchResults>Результаты поиска</SearchResults>
+
+        <Message severity="info">Нет результатов</Message>
+        </>
+      ):null }
     </>
   );
 };

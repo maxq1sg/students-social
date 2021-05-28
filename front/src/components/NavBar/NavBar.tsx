@@ -18,6 +18,8 @@ const Ul = styled.ul(
   margin-left: ${props.open ? "40px" : "0"};
   margin-top: 50px;
   list-style: none;
+  transition: 0.4s linear;
+
 `
 );
 const NavBar = ({ open }: { open: boolean }) => {
@@ -25,10 +27,11 @@ const NavBar = ({ open }: { open: boolean }) => {
     (state: RootState) => state.login
   );
   const menuItems = [
-    { name: "Главная", link: "/", icon: HomeIcon },
+    { name: "Главная", link: `/${user?.id}`, icon: HomeIcon },
     { name: "Мои курсы", link: "/courses", icon: SchoolIcon },
     { name: "Расписание", link: "/schedule", icon: ScheduleIcon },
     { name: "Сообщения", link: "/messages", icon: MailOutlineIcon },
+    { name: "Поиск", link: "/search", icon: MailOutlineIcon },
   ];
   user?.teacher &&
     menuItems.push({

@@ -15,13 +15,19 @@ export const teachersReducer=(state:IteachersState={loading:false,teachers:[]},a
             return state
     }
 }
-function teachersFetch(url:string){
-    return axios.get(url)
+function teachersFetch(url:string,token:any){
+    const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Auth: `Bearer ${token}`,
+        },
+      };
+    return axios.get(url,config)
 }
 function* teachersWorker(action:IteachersAction){
     try {
         yield put({type:EGetTechersActionType.GET_TEACHERS_REQUEST})
-        const {data} = yield call(teachersFetch,"/api/users/teachers")
+        const {data} = yield call(teachersFetch,"/api/users/teachers",action.payload)
         yield put({type:EGetTechersActionType.GET_TEACHERS_SUCCESS,payload:data})
 
     } catch (error) {

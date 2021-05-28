@@ -37,7 +37,6 @@ function fetchSingleCourse({user,course}:IPayload){
 }
 
 function* singleCourseWorker(action:{type:any,payload:IPayload}){
-    console.log(action)
     try {
        yield put({type:ESingleCourseActionType.GET_SINGLE_COURSE_REQUEST})
        const {data} = yield call(fetchSingleCourse,action.payload)

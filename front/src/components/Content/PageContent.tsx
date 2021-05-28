@@ -11,6 +11,9 @@ import CourseCreatePage from "../pages/CourseCreatePage/CourseCreatePage";
 import SingleCoursePage from "../pages/SingleCoursePage/SingleCoursePage";
 import SingleCourseAccessPage from "../pages/SingleCourseAccessPage/SingleCourseAccessPage";
 import CourseSearchPage from "../pages/CoursesSearchPage/CourseSearchPage";
+import ProfilePage from "../pages/ProfilePage/ProfilePage";
+import EditPage from "../pages/EditPage/EditPage";
+import UsersSearchPage from "../pages/UserSearchPage/UserSearchPage";
 
 const ContentWrapper = styled.div`
   flex-grow: 1;
@@ -24,22 +27,28 @@ const PageContent = () => {
     <ContentWrapper>
       <SearchBar />
       <PageContentWrapper>
+        <Route exact path="/:id([0-9a-fA-F]{24})">
+          <ProfilePage />
+        </Route>
+        <Route exact path="/:id([0-9a-fA-F]{24})/edit">
+          <EditPage />
+        </Route>
         <Route exact path="/courses">
           <CoursesPage />
         </Route>
-        <Route path="/schedule">
+        <Route exact path="/schedule">
           <SchedulePage />
         </Route>
-        <Route exact path="/">
+        {/* <Route exact path="/">
           <MainPage />
-        </Route>
-        <Route path="/messages">
+        </Route> */}
+        <Route exact path="/messages">
           <MessagePage />
         </Route>
-        <Route path="/settings">
+        <Route exact path="/settings">
           <SettingsPage />
         </Route>
-        <Route path="/create-course">
+        <Route exact path="/create-course">
           <CourseCreatePage />
         </Route>
         <Route exact path="/courses/:id">
@@ -50,6 +59,12 @@ const PageContent = () => {
         </Route>
         <Route exact path="/search/courses/:keyword">
           <CourseSearchPage />
+        </Route>
+        <Route exact path="/search">
+          <UsersSearchPage />
+        </Route>
+        <Route exact path="/users/:id">
+          <ProfilePage />
         </Route>
       </PageContentWrapper>
     </ContentWrapper>

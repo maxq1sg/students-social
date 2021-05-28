@@ -38,7 +38,13 @@ const CustomField = styled(Field)`
   font-size: 18px;
   border: 1px solid purple;
 `;
-
+const customStyle = {
+  control() {
+    return {
+      // border: "0",
+    };
+  },
+};
 interface IListState {
   options: any[];
   selectedOptions: any[];
@@ -56,6 +62,9 @@ const CourseForm = () => {
     options: groups,
     selectedOptions: [],
   });
+  const { user }: { user: IUser | null } = useSelector(
+    (state: RootState) => state.login
+  );
   const {
     teachers,
     loading: teachersLoading,
@@ -67,8 +76,11 @@ const CourseForm = () => {
     selectedOptions: [],
   });
   useEffect(() => {
-    dispatch({ type: EGroupsActionType.GET_GROUPS });
-    dispatch({ type: EGetTechersActionType.GET_TEACHERS });
+    dispatch({ type: EGroupsActionType.GET_GROUPS, payload: user?.token });
+    dispatch({
+      type: EGetTechersActionType.GET_TEACHERS,
+      payload: user?.token,
+    });
   }, []);
   const groupsChangeHandler = (selected: any) => {
     setGroupsState((prev: any) => ({
@@ -87,7 +99,6 @@ const CourseForm = () => {
       }));
     }
   }, [teachers]);
-  console.log(teachersState.selectedOptions);
   useEffect(() => {
     if (groups.length) {
       setGroupsState((prev) => ({ ...prev, options: groups }));
@@ -105,9 +116,6 @@ const CourseForm = () => {
     loading: createCourseLoading,
     error: createCourseError,
   } = useSelector((state: RootState): ICreatedCourse => state.createdCourse);
-  const { user } = useSelector(
-    (state: RootState): IUserLoginState => state.login
-  );
 
   useEffect(() => {
     if (course) {
@@ -115,7 +123,6 @@ const CourseForm = () => {
     }
   }, [course]);
   const classes = useStyles();
-  console.log(teachersState);
   return (
     <Formik
       initialValues={{
@@ -183,6 +190,7 @@ const CourseForm = () => {
                     options={groupsState.options}
                     classNamePrefix="select"
                     onChange={groupsChangeHandler}
+                    styles={customStyle}
                   />
                 </TableCell>
               </TableRow>
@@ -205,6 +213,7 @@ const CourseForm = () => {
                     options={teachersState.options}
                     className="basic-multi-select"
                     classNamePrefix="select"
+                    styles={customStyle}
                     onChange={teachersChangeHandler}
                     // defaultValue={
                     //   !teachers.length && !teachersLoading

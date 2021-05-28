@@ -17,7 +17,10 @@ export interface IUser{
     dialogs:any[],
     group: any,
     teacher:boolean,
-    id:string
+    id:string,
+    fullName:string,
+    token?:string,
+    _id?:string
 }
 export interface ICourse{
     _id:string,

@@ -3,13 +3,17 @@ import styled, { css, keyframes } from "styled-components";
 import "./Loader.css";
 import { ContentLoader, LoaderAnimation } from "./LoaderAnimation";
 
-const Loader = (props: { border: string; width: string }) => {
+interface ILoader {
+  border?: string;
+  width?: string;
+}
+const Loader = ({ width = "96px", border = "10px" }: ILoader) => {
   return (
-    <ContentLoader {...props}>
-      <LoaderAnimation {...props}></LoaderAnimation>
-      <LoaderAnimation {...props}></LoaderAnimation>
-      <LoaderAnimation {...props}></LoaderAnimation>
-      <LoaderAnimation {...props}></LoaderAnimation>
+    <ContentLoader width={width} border={border}>
+      <LoaderAnimation width={width} border={border}></LoaderAnimation>
+      <LoaderAnimation width={width} border={border}></LoaderAnimation>
+      <LoaderAnimation width={width} border={border}></LoaderAnimation>
+      <LoaderAnimation width={width} border={border}></LoaderAnimation>
     </ContentLoader>
   );
 };

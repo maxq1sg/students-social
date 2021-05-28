@@ -46,13 +46,11 @@ export const searchReducer = (
   }
 };
 function fetchSearch({ keyword, resultType }: ISearchPayload) {
-  console.log(keyword)
-  console.log(resultType)
-  return axios.get(`/api/search/${resultType==="course"?"courses":"users"}?keyword=${keyword}`);
+  console.log(keyword,resultType)
+  return axios.get(`/api/search/${resultType}?keyword=${keyword}`);
 }
 
 function* searchWorker(action: { type:ESearchActionType ; payload: ISearchPayload }) {
-  console.log(action.payload)
   try {
     yield put({ type: ESearchActionType.SEARCH_REQUEST});
     const { data } = yield call(fetchSearch, action.payload);

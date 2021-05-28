@@ -1,4 +1,5 @@
 import express from "express";
+import protect from "../middleware/protect.js";
 import Group from "../models/Group.js";
 const router = express.Router();
 

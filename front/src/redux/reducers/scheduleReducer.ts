@@ -14,8 +14,14 @@ export const scheduleReducer = (state:IScheduleState={loading:false,schedule:nul
         default: return state
         }
 }
-function fetchSchedule(data:any){
-    return axios.post("/api/schedule",data)
+function fetchSchedule({year,short,token}:any){
+    const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Auth: `Bearer ${token}`,
+        },
+      };
+    return axios.post("/api/schedule",{year,short},config)
 }
 
 function* getScheduleWorker(action:any){

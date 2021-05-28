@@ -37,6 +37,8 @@ const LogoImage = styled.div(
 
   width: ${props.open ? "100%" : "0"};
   height: 100px;
+  transition: 0.4s linear;
+
 `
 );
 
@@ -48,7 +50,6 @@ const NavBarContainer = () => {
   const changeOpen = () => {
     dispatch({ type: NavConst.CHANGE_NAVBAR });
   };
-  console.log(open);
   return (
     <Container open={open}>
       <div style={{ border: "1px solid grey" }}>

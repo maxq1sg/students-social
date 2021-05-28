@@ -2,6 +2,7 @@ import { all } from "@redux-saga/core/effects";
 import { createCourseWatcher } from "../reducers/createCourseReducer";
 import { getCoursesWatcher } from "../reducers/getCoursesRedcuer";
 import { singleCourseWatcher } from "../reducers/getSingleCourseReducer";
+import { singleUserWatcher } from "../reducers/getUserReducer";
 import { groupsWatcher } from "../reducers/groupsReducer";
 import { userLoginWatcher } from "../reducers/loginReducer";
 import { scheduleWatcher } from "../reducers/scheduleReducer";
@@ -16,6 +17,7 @@ export default function* rootWatcher(){
         teachersWatcher(),
         getCoursesWatcher(),
         singleCourseWatcher(),
-        searchWatcher()
+        searchWatcher(),
+        singleUserWatcher()
     ])
 }
