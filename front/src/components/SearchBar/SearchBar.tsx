@@ -6,10 +6,10 @@ import MiniProfile from "./MiniProfile";
 const SearchBarFlex = styled.div`
   display: flex;
   flex-wrap: nowrap;
-  padding: 0 20px;
+  padding: 0 50px;
   background: ${({ theme }: { theme: ITheme }) => theme.primary};
   @media (max-width: 500px) {
-    padding: 0;
+    padding: 0 20px;
   }
 `;
 

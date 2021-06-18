@@ -14,7 +14,7 @@ import { IState } from "./Navtypes";
 const Container = styled.div`
   min-height: 100vh;
   background: #0d3670;
-  flex: 30px 0 1;
+  flex: 50px 0 1;
 `;
 
 const FixedContainer = styled.div`

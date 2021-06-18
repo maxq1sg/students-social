@@ -25,6 +25,9 @@ const ContentWrapper = styled.div`
 `;
 const PageContentWrapper = styled.div`
   padding: 20px;
+  @media (max-width: 478px) {
+    padding: 0px;
+  }
 `;
 const PageContent = () => {
   return (
