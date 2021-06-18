@@ -3,11 +3,12 @@ import { useHistory } from "react-router";
 import styled from "styled-components";
 import pant from "../../images/marco-pantani.jpg";
 import { ICourse } from "../../redux/reducers/types";
+import { ITheme } from "../DarkMode/themes";
 import StyledButton from "../StyledButton/StyledButton";
 import LittleAva from "./LittleAva";
 export const SingleCourseWrapper = styled.div`
   border-radius: 10px;
-  background: white;
+  background: ${({ theme }: { theme: ITheme }) => theme.secondary};
   padding: 10px;
   position: relative;
   min-height: 400px;
@@ -29,7 +30,7 @@ export const ButtonWrapper = styled.div`
   left: 10px;
 `;
 export const CourseName = styled.div`
-  color: #0d3670;
+  color: ${({ theme }: { theme: ITheme }) => theme.text};
   font-weight: bold;
   font-size: 20px;
   margin: 8px 0;
@@ -40,13 +41,18 @@ const SingleCourse = ({ course }: { course: ICourse }) => {
   const redirectClickHandler = (e: SyntheticEvent) => {
     history.push(`/courses/${course._id}`);
   };
-  console.log(course.teachers)
+  console.log(course.teachers);
   return (
     <SingleCourseWrapper>
       <CourseImage />
       <AvaContainer>
         {course.teachers.map((teacher) => (
-          <LittleAva name={teacher.fullName} id={teacher._id} />
+          <LittleAva
+            isPerson={true}
+            letter={teacher.fullName[0]}
+            content={teacher.fullName}
+            id={teacher._id}
+          />
         ))}
       </AvaContainer>
       <CourseName>{course.name}</CourseName>

@@ -2,13 +2,12 @@ import axios from 'axios';
 import {call, put, takeEvery} from "redux-saga/effects"
 import { RootState } from '../store';
 import { EUserLogin, IAction, IUserLoginState,IUser } from './types';
+import produce from "immer"
 
-function pushNewCourse(action:IAction,state:IUserLoginState){
-    return {
-        ...state.user,
-        courses:state.user?.courses.concat(action.payload)
-    }
-}
+
+
+
+
 export const userLoginReducer=(state:IUserLoginState={loading:false,user:null},action:IAction)=>{
     switch(action.type){
         case(EUserLogin.USER_LOGIN_REQUEST):
@@ -19,6 +18,25 @@ export const userLoginReducer=(state:IUserLoginState={loading:false,user:null},a
             return {loading:false,user:null,error:action.payload}
         case(EUserLogin.USER_LOGOUT):
             return {loading:false,user:null}
+        case(EUserLogin.USER_FRIEND):{
+            return produce(state,draft=>{
+                if(action.payload.isAdd){
+                    draft.user?.friends.push(action.payload.user)
+                } else{
+                    if(draft.user){
+                        draft.user.friends = draft.user?.friends.filter(friend=>friend!==action.payload.user)
+                    }
+                }
+            })
+        }
+        case(EUserLogin.USER_NAME_MODIFY):{
+            return produce(state,draft=>{
+                if(draft.user){
+                    draft.user.name=action.payload.name
+                    draft.user.fullName=action.payload.fullName
+                }
+            })
+        }
         default: 
             return state
     }

@@ -1,14 +1,16 @@
+@import-normalize;
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  background: #e5e5e5;
+  /* background: #e5e5e5; */
 }
 
 ul {
   padding: 0;
   margin: 0;
+  list-style: none;
 }
 * {
   box-sizing: border-box;
@@ -34,9 +36,9 @@ p {
   padding: 10px 0;
 }
 
-.send-message__button{
+.send-message__button {
   margin-top: 10px;
 }
-.link{
+.link {
   text-decoration: none;
 }

@@ -15,8 +15,8 @@ router.post("/new", async (req, res) => {
       groups,
       teachers,
       description,
+      tasks,
     } = req.body;
-    console.log(teachers);
     const course = new Course({
       name,
       password,
@@ -24,44 +24,67 @@ router.post("/new", async (req, res) => {
       endDate,
       groups,
       teachers,
-      tasks: [],
+      tasks,
       description,
     });
     await course.save();
-    for (let item of groups) {
-      const groupMembers = await User.find({ group: item });
-      for (let member of groupMembers) {
-        member.courses.push(course);
-        await member.save();
-      }
-    }
-    for (let item of teachers) {
-      const user = await User.findById(item);
-      user.courses.push(course);
-      await user.save();
-    }
+    // for (let item of groups) {
+    //   const groupMembers = await User.find({ group: item });
+    //   console.log(groupMembers);
+    //   for (let member of groupMembers) {
+    //     member.courses.push(course);
+    //     await member.save();
+    //   }
+    // }
+    // for (let item of teachers) {
+    //   const user = await User.findById(item);
+    //   user.courses.push(course);
+    //   await user.save();
+    // }
     res.json(course);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 });
-router.post("/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
-    const { id } = req.params;
-    const { user: userId } = req.body;
+    const { id: courseId } = req.params;
+    const { user: userId } = req.query;
     const user = await User.findById(userId);
+    const course = await Course.findById(courseId).populate("teachers");
     if (!user) {
       throw new Error("Пользователя не существует!");
     }
-    for (let course of user.courses) {
-      console.log(course._id);
-      if (course._id == id) {
-        res.json(course);
+    let hasAccess = false;
+    console.log("course", course);
+    if (!user.group) {
+      for (let teacher of course.teachers) {
+        // console.log(teacher.toString(), user._id.toString());
+        if (teacher.toString() == user._id.toString()) {
+          console.log("equal");
+          hasAccess = true;
+        }
+      }
+    } else {
+      for (let group of course.groups) {
+        if (group.toString() == user.group.toString()) {
+          hasAccess = true;
+        }
       }
     }
-    throw new Error("Нет доступа к курсу!");
+    if (hasAccess) {
+      res.json(course);
+    } else {
+      throw new Error(
+        JSON.stringify({
+          name: course.name,
+          description: course.description,
+          teachers: course.teachers,
+        })
+      );
+    }
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    res.status(404).json({ message: JSON.parse(error.message) });
   }
 });
 export default router;

@@ -1,0 +1,15 @@
+.filter-open__style {
+  display: block;
+}
+.filter-closed__style {
+  display: none;
+}
+.filter-title {
+  display: inline-block;
+  position: relative;
+}
+.filter-icon{
+    font-size: 40px;
+    position: absolute;
+    top: -4px;
+}

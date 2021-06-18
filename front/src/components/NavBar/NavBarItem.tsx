@@ -1,40 +1,68 @@
-import React, { ReactElement } from "react";
+import React, {
+  Dispatch,
+  ReactElement,
+  SetStateAction,
+  useEffect,
+} from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
 import styles from "./NavBar.module.css";
 import { ReactNode } from "react";
-import {SvgIconProps} from "@material-ui/core"
+import { SvgIconProps } from "@material-ui/core";
 import { IState } from "./Navtypes";
 import { RootState } from "../../redux/store";
-import {useSelector} from "react-redux"
-
+import { useSelector } from "react-redux";
+import { useRef } from "react";
+import "./NavBar.module.css";
+import { NavLink } from "react-router-dom";
+import CustomNavLink from "../CustomNavlink/CustomNavlink";
 
 const Li = styled.li`
   margin-bottom: 20px;
   font-size: 20px;
   color: white;
 `;
-const Span = styled.span``;
-interface IMenuItem {
-  name: string,
-  link: string,
-  icon: (props: SvgIconProps) => JSX.Element
+interface IProps {
+  isOpen: boolean;
 }
-const NavBarItem = ({ menuItem }: { menuItem: IMenuItem }) => {
-  const {open}:IState = useSelector<RootState>((state) => state.navbar) as IState;
-
-  const Icon = menuItem.icon
-  
+const CustomSpan = styled.span`
+  visibility: ${(props: IProps) => (props.isOpen ? "visible" : "hidden")};
+  opacity: ${(props: IProps) => (props.isOpen ? 1 : 0)};
+  display: ${(props: IProps) => !props.isOpen && "none"};
+  transition: display 0.5s;
+`;
+interface IMenuItem {
+  name: string;
+  link: string;
+  icon: (props: SvgIconProps) => JSX.Element;
+}
+const NavBarItem = ({
+  menuItem,
+  isOpen,
+  setIsOpen,
+}: {
+  menuItem: IMenuItem;
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}) => {
+  const Icon = menuItem.icon;
+  const span = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    // span.current?.classList.toggle(".hidden");
+  });
   return (
-    <Li>
+    <Li
+      onClick={() => {
+        setIsOpen(false);
+      }}
+    >
       <NavLink
         className={styles["link-name"]}
         activeClassName={styles.activeLink}
         to={menuItem.link}
         exact
       >
-        <Icon className={styles.icon}/>
-        {open?menuItem.name:null}
+        <Icon className={styles.icon} />
+        <CustomSpan isOpen={isOpen}>{menuItem.name}</CustomSpan>
       </NavLink>
     </Li>
   );

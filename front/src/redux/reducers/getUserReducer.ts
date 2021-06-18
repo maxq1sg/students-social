@@ -14,6 +14,8 @@ export interface IGetUserState {
     GET_USER_FAILURE = "GET_USER_FAILURE",
     GET_USER = "GET_USER",
     GET_USER_RESET = "GET_USER_RESET",
+    GET_USER_SYNC = "GET_USER_SYNC",
+    
   }
 
 export const getUserReducer=(state:IGetUserState={loading:false,user:null},action:{type:EGetUserActionType,payload:any}):IGetUserState=>{
@@ -24,6 +26,16 @@ export const getUserReducer=(state:IGetUserState={loading:false,user:null},actio
             return {loading:false,user:action.payload}
         case(EGetUserActionType.GET_USER_FAILURE):
             return {loading:false,user:null,error:action.payload}
+        case(EGetUserActionType.GET_USER_RESET):
+            return {loading:false,user:null}
+        // case(EGetUserActionType.GET_USER_SYNC):{
+        //     const stateCopy = {...state}
+        //     if(action.payload.areFriends){
+        //         stateCopy.user?.friends = stateCopy.user?.friends?.filter(item=>item!==action.payload.id)
+        //     }
+        //     return {...state}
+        // }
+            
         default: 
             return state
     }

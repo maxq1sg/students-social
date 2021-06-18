@@ -13,8 +13,11 @@ const FormWrapper = styled.form`
   background: white;
 `;
 const FormInput = styled.input.attrs(
-  (props: { onChange: (event: ChangeEvent<HTMLInputElement>) => void }) => ({
-    type: "text",
+  (props: {
+    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    type: string;
+  }) => ({
+    type: props.type,
   })
 )`
   width: 100%;
@@ -48,7 +51,7 @@ const FormSubmit = styled.button.attrs(({ disabled }) => ({
 `;
 const LoginForm = () => {
   const history = useHistory();
-  const [name, setName] = useState<string>("eco.vasyuk");
+  const [name, setName] = useState<string>("eco.bern");
   const [password, setPassword] = useState<string>("123");
   const { user, loading } = useSelector((state: RootState) => state.login);
   const dispatch = useDispatch();
@@ -69,11 +72,13 @@ const LoginForm = () => {
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Введите логин"
+        type="text"
       />
       <FormInput
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Введите пароль"
+        type="password"
       />
       <FormSubmit onClick={() => {}} disabled={loading}>
         {loading ? "Выполняется вход" : "войти"}

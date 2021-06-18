@@ -4,13 +4,16 @@ import { useHistory } from "react-router";
 import styled from "styled-components";
 import ava from "../../../images/default-ava.jpg";
 import { IGetUserState } from "../../../redux/reducers/getUserReducer";
+import { IUser } from "../../../redux/reducers/types";
 import { RootState } from "../../../redux/store";
+import { ITheme } from "../../DarkMode/themes";
 import StyledButton from "../../StyledButton/StyledButton";
+import UniversalButton from "./UniversalButton";
 
 const ProfileWrapper = styled.div`
   margin: 0 15px 15px 0;
   flex: 1 1 250px;
-  background: white;
+  background: ${({ theme }: { theme: ITheme }) => theme.secondary};
   padding: 10px 10px 20px 10px;
   border-radius: 10px;
 `;
@@ -20,23 +23,16 @@ const AvatarPhoto = styled.div`
   height: 300px;
   border-radius: 10px;
   margin-bottom: 15px;
+  @media (max-width: 368px) {
+    height: 150px;
+  }
 `;
-const ProfileAvatar = ({ ...user }) => {
-  const history = useHistory();
-
-  const clickEditHandler = () => {
-    history.push(`/${user?._id}/edit`);
-  };
+const ProfileAvatar = ({ user }: { user: IUser|null }) => {
+  console.log(user);
   return (
     <ProfileWrapper>
       <AvatarPhoto />
-      <StyledButton
-        onClick={clickEditHandler}
-        className="other_button"
-        disabled={false}
-      >
-        Редактировать
-      </StyledButton>
+      <UniversalButton user={user} />
     </ProfileWrapper>
   );
 };

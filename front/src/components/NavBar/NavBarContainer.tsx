@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import NavBar from "./NavBar";
 import bsu from "../../images/bsu.jpg";
@@ -11,31 +11,34 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavConst } from "../../redux/types/navbarTypes";
 import { IState } from "./Navtypes";
 
-const Container = styled.div(
-  (props: { open: boolean }) => `
-  min-height:100vh;
-  flex-basis: ${props.open ? "240px" : "50px"};
-  flex-shrink: 0;
+const Container = styled.div`
+  min-height: 100vh;
   background: #0d3670;
-  position: relative;
-  transition: 0.4s linear;
-`
-);
+  flex: 30px 0 1;
+`;
+
+const FixedContainer = styled.div`
+  min-height: 100vh;
+  background: #0d3670;
+  position: fixed;
+  z-index: 10000;
+  width: ${({ isOpen }: { isOpen: boolean }) => (isOpen ? "240px" : "50px")};
+`;
 const LogoArrow = styled.div(
-  (props: { open: boolean }) => `
+  (props: { isOpen: boolean }) => `
   position: absolute;
   top: 20px;
-  right: ${props.open ? "18px" : "50%"};
+  right: ${props.isOpen ? "18px" : "50%"};
   transform: translateX(50%)
 `
 );
 
 const LogoImage = styled.div(
-  (props: { open: boolean }) => `
+  (props: { isOpen: boolean }) => `
   margin-top: 30px;
   background: url(${bsu}) center/cover no-repeat;
 
-  width: ${props.open ? "100%" : "0"};
+  width: ${props.isOpen ? "100%" : "0"};
   height: 100px;
   transition: 0.4s linear;
 
@@ -43,19 +46,17 @@ const LogoImage = styled.div(
 );
 
 const NavBarContainer = () => {
-  const { open }: IState = useSelector<RootState>(
-    (state) => state.navbar
-  ) as IState;
-  const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
   const changeOpen = () => {
-    dispatch({ type: NavConst.CHANGE_NAVBAR });
+    // dispatch({ type: NavConst.CHANGE_NAVBAR });
+    setIsOpen((prev) => !prev);
   };
   return (
-    <Container open={open}>
-      <div style={{ border: "1px solid grey" }}>
-        <LogoImage open={open} />
-        <LogoArrow open={open}>
-          {open ? (
+    <Container>
+      <FixedContainer isOpen={isOpen}>
+        <LogoImage isOpen={isOpen} />
+        <LogoArrow isOpen={isOpen}>
+          {isOpen ? (
             <ArrowBackIosIcon onClick={changeOpen} className={styles.arrow} />
           ) : (
             <ArrowForwardIosIcon
@@ -64,8 +65,8 @@ const NavBarContainer = () => {
             />
           )}
         </LogoArrow>
-        <NavBar open={open} />
-      </div>
+        <NavBar setIsOpen={setIsOpen} isOpen={isOpen} />
+      </FixedContainer>
     </Container>
   );
 };

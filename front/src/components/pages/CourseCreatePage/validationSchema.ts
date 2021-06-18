@@ -11,4 +11,6 @@ export const validationSchema = Yup.object({
     .required("Поле обязательно для заполнения!"),
     beginDate: Yup.date().required("Поле обязательно для заполнения!").nullable(),
     endDate: Yup.date().required("Поле обязательно для заполнения!").nullable(),
+    tasks:Yup.array().of(Yup.object({text:Yup.string().max(145, "Максимальное число символов - 145")
+    .min(3, "Минимальное число символов - 3").required("Поле обязательно для заполнения!")}))
   })

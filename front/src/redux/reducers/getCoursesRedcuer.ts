@@ -31,8 +31,10 @@ export const getCoursesReducer = (state:ICoursesState={loading:false,courses:[],
         default: return state
         }
 }
-function fetchCourses(id:string){
-    return axios.get(`/api/users/${id}/courses`)
+function fetchCourses({userId}:{userId:string}){
+
+    return axios.get(`/api/users/${userId}/courses`)
+
 }
 
 function* getCoursesWorker(action:any){

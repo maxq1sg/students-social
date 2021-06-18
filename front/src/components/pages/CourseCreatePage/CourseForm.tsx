@@ -1,8 +1,9 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik, FieldArray } from "formik";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import * as Yup from "yup";
 import FormErrorMessage from "./FormErrorMessage";
+import StyledButton from "../../StyledButton/StyledButton";
 import {
   ECreateCourseActionType,
   EGetTechersActionType,
@@ -26,25 +27,41 @@ import {
 import useStyles from "./materialStyles";
 // import { createLanguageServiceSourceFile } from "typescript";
 import { validationSchema } from "./validationSchema";
-import StyledButton from "../../StyledButton/StyledButton";
+// import StyledButton from "../../StyledButton/StyledButton";
 import { useHistory } from "react-router";
 import { RootState } from "../../../redux/store";
 import { ICoursesState } from "../../../redux/reducers/getCoursesRedcuer";
 import Select from "react-select";
+import TextareaAutosize from "react-textarea-autosize";
+import CloseIcon from "@material-ui/icons/Close";
+import TextAreaWithFormik from "./TextArea";
 
-const CustomField = styled(Field)`
+export const CustomField = styled(Field)`
   padding: 5px;
   border-radius: 3px;
   font-size: 18px;
   border: 1px solid purple;
 `;
-const customStyle = {
-  control() {
-    return {
-      // border: "0",
-    };
-  },
-};
+
+export const CustomTextArea = styled(TextareaAutosize)`
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 18px;
+  border: 1px solid purple;
+  resize: none;
+  font: inherit;
+  width: 200px;
+`;
+const OptionWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+const IconWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  right: -15%;
+  transform: translateY(-50%);
+`;
 interface IListState {
   options: any[];
   selectedOptions: any[];
@@ -126,11 +143,12 @@ const CourseForm = () => {
   return (
     <Formik
       initialValues={{
-        name: "maximka",
+        name: "",
         description: "",
-        password: "123",
-        beginDate: "2011-09-29",
-        endDate: "2011-09-29",
+        password: "",
+        beginDate: new Date().toISOString().substring(0, 10),
+        endDate: new Date().toISOString().substring(0, 10),
+        tasks: [{ text: "" }],
       }}
       onSubmit={(values) => {
         dispatch({
@@ -148,124 +166,184 @@ const CourseForm = () => {
       }}
       validationSchema={validationSchema}
     >
-      <Form>
-        <Table className={classes.table} component={Paper}>
-          <TableContainer component={Paper}>
-            <TableBody>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  <label htmlFor="name"> Название курса</label>
-                </TableCell>
-                <TableCell>
-                  <CustomField id="name" name="name" />
-                  <ErrorMessage name="name" component={FormErrorMessage} />
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  <label htmlFor="name"> Описание курса (необязательно)</label>
-                </TableCell>
-                <TableCell>
-                  <CustomField id="description" name="description" />
-                  <ErrorMessage
-                    name="description"
-                    component={FormErrorMessage}
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell
-                  // className={classes.tableCell}
-                  component="th"
-                  scope="row"
-                >
-                  <label htmlFor="name"> Группы для участия в курсе</label>
-                </TableCell>
-                <TableCell>
-                  <Select
-                    placeholder={groupsLoading ? "загрузка..." : "группы"}
-                    maxMenuHeight={120}
-                    isMulti
-                    name="groups"
-                    options={groupsState.options}
-                    classNamePrefix="select"
-                    onChange={groupsChangeHandler}
-                    styles={customStyle}
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell
-                  // className={classes.tableCell}
-                  component="th"
-                  scope="row"
-                >
-                  <label htmlFor="name"> Преподаватели курса (кроме Вас)</label>
-                </TableCell>
-                <TableCell>
-                  <Select
-                    placeholder={
-                      teachersLoading ? "загрузка..." : "преподаватели"
-                    }
-                    maxMenuHeight={120}
-                    isMulti
-                    name="teachers"
-                    options={teachersState.options}
-                    className="basic-multi-select"
-                    classNamePrefix="select"
-                    styles={customStyle}
-                    onChange={teachersChangeHandler}
-                    // defaultValue={
-                    //   !teachers.length && !teachersLoading
-                    //     ? { value: "", label: "maximk" }
-                    //     : null
-                    // }
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell
-                  // className={classes.tableCell}
-                  component="th"
-                  scope="row"
-                >
-                  <label htmlFor="password"> Кодовое слово курса</label>
-                </TableCell>
-                <TableCell>
-                  <CustomField id="password" name="password" />
-                  <ErrorMessage name="password" component={FormErrorMessage} />
-                </TableCell>
-              </TableRow>
+      {({ values }) => (
+        <Form>
+          <div className={classes.div}>
+            <Table className={classes.table} component={Paper}>
+              <TableContainer component={Paper}>
+                <TableBody>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      <label htmlFor="name"> Название курса*</label>
+                    </TableCell>
+                    <TableCell>
+                      <CustomField id="name" name="name" />
+                      <ErrorMessage name="name" component={FormErrorMessage} />
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      <label htmlFor="name">
+                        {" "}
+                        Описание курса (необязательно)
+                      </label>
+                    </TableCell>
+                    <TableCell>
+                      <CustomField id="description" name="description" />
+                      <ErrorMessage
+                        name="description"
+                        component={FormErrorMessage}
+                      />
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell
+                      // className={classes.tableCell}
+                      component="th"
+                      scope="row"
+                    >
+                      <label htmlFor="name"> Группы для участия в курсе</label>
+                    </TableCell>
+                    <TableCell>
+                      <Select
+                        placeholder={groupsLoading ? "загрузка..." : "группы"}
+                        maxMenuHeight={120}
+                        isMulti
+                        name="groups"
+                        options={groupsState.options}
+                        classNamePrefix="select"
+                        onChange={groupsChangeHandler}
+                        // styles={customStyle}
+                      />
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell
+                      // className={classes.tableCell}
+                      component="th"
+                      scope="row"
+                    >
+                      <label htmlFor="name"> Преподаватели курса</label>
+                    </TableCell>
+                    <TableCell>
+                      <Select
+                        placeholder={
+                          teachersLoading ? "загрузка..." : "преподаватели"
+                        }
+                        maxMenuHeight={120}
+                        isMulti
+                        name="teachers"
+                        options={teachersState.options}
+                        className="basic-multi-select"
+                        classNamePrefix="select"
+                        // styles={customStyle}
+                        onChange={teachersChangeHandler}
+                      />
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell
+                      // className={classes.tableCell}
+                      component="th"
+                      scope="row"
+                    >
+                      <label htmlFor="password"> Кодовое слово курса*</label>
+                    </TableCell>
+                    <TableCell>
+                      <CustomField id="password" name="password" />
+                      <ErrorMessage
+                        name="password"
+                        component={FormErrorMessage}
+                      />
+                    </TableCell>
+                  </TableRow>
 
-              <TableRow>
-                <TableCell
-                  // className={classes.tableCell}
-                  component="th"
-                  scope="row"
-                >
-                  <label htmlFor="beginDate"> Дата начала курса</label>
-                </TableCell>
-                <TableCell>
-                  <CustomField name="beginDate" type="date" />
-                  <ErrorMessage name="beginDate" component={FormErrorMessage} />
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  <label htmlFor="endDate"> Дата окончания курса</label>
-                </TableCell>
-                <TableCell>
-                  <CustomField name="endDate" type="date" />
-                  <ErrorMessage name="endDate" component={FormErrorMessage} />
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </TableContainer>
-        </Table>
-        <StyledButton disabled={createCourseLoading}>
-          {createCourseLoading ? "идет создание курса" : "создать курс"}
-        </StyledButton>
-      </Form>
+                  <TableRow>
+                    <TableCell
+                      // className={classes.tableCell}
+                      component="th"
+                      scope="row"
+                    >
+                      <label htmlFor="beginDate"> Дата начала курса</label>
+                    </TableCell>
+                    <TableCell>
+                      <CustomField name="beginDate" type="date" />
+                      <ErrorMessage
+                        name="beginDate"
+                        component={FormErrorMessage}
+                      />
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      <label htmlFor="endDate"> Дата окончания курса</label>
+                    </TableCell>
+                    <TableCell>
+                      <CustomField name="endDate" type="date" />
+                      <ErrorMessage
+                        name="endDate"
+                        component={FormErrorMessage}
+                      />
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      <label htmlFor="endDate"> Задания курса</label>
+                    </TableCell>
+                    <TableCell>
+                      <FieldArray name="tasks">
+                        {({ insert, remove, push }) => (
+                          <div>
+                            {values.tasks.length > 0 &&
+                              values.tasks.map((task, index) => (
+                                <div key={index}>
+                                  <OptionWrapper>
+                                    {/* <CustomTextArea
+                                      name={`tasks.${index}.text`}
+                                      placeholder="Введите задание"
+                                    /> */}
+                                    <TextAreaWithFormik
+                                      name={`tasks.${index}.text`}
+                                      placeholder="Введите задание"
+                                      index={index}
+                                    />
+                                    {/* <ErrorMessage
+                                      name={`tasks.${index}.text`}
+                                      component={FormErrorMessage}
+                                    /> */}
+                                    <IconWrapper>
+                                      <CloseIcon
+                                        onClick={() => remove(index)}
+                                      />
+                                    </IconWrapper>
+                                  </OptionWrapper>
+                                </div>
+                              ))}
+                            <StyledButton
+                              onClick={(e: React.MouseEvent) => {
+                                e.preventDefault();
+                                push({ text: "" });
+                              }}
+                            >
+                              Добавить
+                            </StyledButton>
+                          </div>
+                        )}
+                      </FieldArray>
+
+                      {/* <CustomField name="endDate" type="date" />
+                    <ErrorMessage name="endDate" component={FormErrorMessage} /> */}
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </TableContainer>
+            </Table>
+          </div>
+          <StyledButton disabled={createCourseLoading}>
+            {createCourseLoading ? "идет создание курса" : "создать курс"}
+          </StyledButton>
+        </Form>
+      )}
     </Formik>
   );
 };

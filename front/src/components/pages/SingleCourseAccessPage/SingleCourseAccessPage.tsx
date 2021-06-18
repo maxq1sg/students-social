@@ -11,11 +11,11 @@ const SingleCourseAccessPage = () => {
   const location = useLocation<LocationState>();
   const { id } = useParams<{ id: string }>();
   const regExp = new RegExp("^/courses/([0-9]+([a-zA-Z]+[0-9]+)+)$");
-  useComponentWillMount(() => {
-    if (!regExp.test(location.state?.from)) {
-      history.push(`/courses/${id}`);
-    }
-  });
+  // useComponentWillMount(() => {
+  //   if (!regExp.test(location.state?.from)) {
+  //     history.push(`/courses/${id}`);
+  //   }
+  // });
   return (
     <>
       <Helmet>

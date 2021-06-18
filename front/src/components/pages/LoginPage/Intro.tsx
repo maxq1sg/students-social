@@ -4,10 +4,10 @@ const IntroContainer = styled.div`
   flex: 1 1 350px;
   padding-right: 50px;
   position: relative;
-  margin-bottom:40px;
-  display:flex;
-  justify-content:center;
-  align-items:center
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const Title = styled.div`
   color: blue;
@@ -18,7 +18,7 @@ const IntroMessage = styled.div`
   font-size: 20px;
 `;
 const IntroWrapper = styled.div`
-
+  flex: 1 0 350px;
 `;
 const Intro = () => {
   return (

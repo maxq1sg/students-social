@@ -6,12 +6,12 @@ const router = express.Router();
 
 router.get("/courses", async (req, res) => {
   try {
-    console.log("huyyyyyyyyyyyyy");
     const { keyword } = req.query;
     const query = {
       name: { $regex: new RegExp(`${keyword}`), $options: "i" },
     };
-    const courses = await Course.find(query);
+    const courses = await Course.find(query).populate("teachers");
+    console.log(courses);
     res.json(courses);
   } catch (error) {
     res.status(404).json({ message: error.message });

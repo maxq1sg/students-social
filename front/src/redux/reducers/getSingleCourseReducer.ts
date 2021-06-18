@@ -4,9 +4,9 @@ import { ICourse } from './types';
 
 export interface ISingleCourseState{
     loading:boolean,
-    error?:string,
+    error?:any,
     course:ICourse|null,
-    done:boolean
+    success:boolean
 }
 export enum ESingleCourseActionType{
     GET_SINGLE_COURSE_REQUEST="GET_SINGLE_COURSE_REQUEST",
@@ -19,21 +19,21 @@ interface IPayload{
     course:string,
     user:string
 }
-export const singleCourseReducer = (state:ISingleCourseState={loading:false,course:null,done:false},action:{type:ESingleCourseActionType,payload:any}):ISingleCourseState=>{
+export const singleCourseReducer = (state:ISingleCourseState={loading:false,course:null,success:false},action:{type:ESingleCourseActionType,payload:any}):ISingleCourseState=>{
     switch(action.type){
         case(ESingleCourseActionType.GET_SINGLE_COURSE_REQUEST):
-            return {done:false,loading:true,course:null}
+            return {success:false,loading:true,course:null}
         case(ESingleCourseActionType.GET_SINGLE_COURSE_SUCCESS):
-            return {done:true,loading:false,course:action.payload}
+            return {success:true,loading:false,course:action.payload}
         case(ESingleCourseActionType.GET_SINGLE_COURSE_FAILURE):
-            return {done:true,loading:false,course:null,error:action.payload}
+            return {success:false,loading:false,course:null,error:action.payload}
         case(ESingleCourseActionType.GET_SINGLE_COURSE_RESET):
-            return {done:false,loading:false,course:null}
+            return {success:false,loading:false,course:null}
         default: return state
         }
 }
 function fetchSingleCourse({user,course}:IPayload){
-    return axios.post(`/api/courses/${course}`,{user})
+    return axios.get(`/api/courses/${course}?user=${user}`,)
 }
 
 function* singleCourseWorker(action:{type:any,payload:IPayload}){
@@ -42,6 +42,7 @@ function* singleCourseWorker(action:{type:any,payload:IPayload}){
        const {data} = yield call(fetchSingleCourse,action.payload)
        yield put({type:ESingleCourseActionType.GET_SINGLE_COURSE_SUCCESS,payload:data})        
     } catch (error) {
+        console.log('error',error)
         const message =
         error.response && error.response.data.message
           ? error.response.data.message

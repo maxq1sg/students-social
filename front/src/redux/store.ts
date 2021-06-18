@@ -1,3 +1,9 @@
+import { getFriendsReducer } from './reducers/getFriendsReducer';
+import { addToFriendsReducer } from './reducers/addToFriendsReducer';
+import { allowedToEditReducer } from './reducers/allowedToEdit';
+import { getGroupMembersReducer } from './reducers/getGroupMembersReducer';
+import { getGroupCoursesReducer } from './reducers/getGroupCoursesReducer';
+import { getMainGroupInfoReducer } from './reducers/getMainGroupInfoReducer';
 import { scheduleReducer } from './reducers/scheduleReducer';
 import { userLoginReducer } from './reducers/loginReducer';
 import {createStore,combineReducers,applyMiddleware} from "redux"
@@ -12,11 +18,15 @@ import { getCoursesReducer } from './reducers/getCoursesRedcuer';
 import { singleCourseReducer } from './reducers/getSingleCourseReducer';
 import { searchReducer } from './reducers/searchReducer';
 import { getUserReducer } from './reducers/getUserReducer';
+import themeReducer from './reducers/themeReducer';
+import { editNameReducer } from './reducers/editNameReducer';
+import { editPasswordReducer} from './reducers/editPasswordReducer';
 
 const saga = createSagaMiddleware()
 
 const scheduleFromStorage = localStorage.getItem("schedule")
 const loginFromStorage = localStorage.getItem("login")
+const themeFromStorage = localStorage.getItem("theme")
 
 const initialState ={
     schedule: {
@@ -26,11 +36,13 @@ const initialState ={
     login: {
         loading:false,
         user: loginFromStorage?JSON.parse(loginFromStorage):null
+    }, 
+    theme:{
+        dark:themeFromStorage?JSON.parse(themeFromStorage):false
     }
 }
 
 const rootReducer = combineReducers({
-    navbar:navbarReducer,
     login: userLoginReducer,
     schedule:scheduleReducer,
     groups:groupsReducer,
@@ -39,7 +51,17 @@ const rootReducer = combineReducers({
     courses:getCoursesReducer,
     singleCourse: singleCourseReducer,
     searchResults: searchReducer,
-    profile:getUserReducer
+    profile:getUserReducer,
+    groupInfo:getMainGroupInfoReducer,
+    groupCourses:getGroupCoursesReducer,
+    groupMembers: getGroupMembersReducer,
+    allowedToEdit:allowedToEditReducer,
+    theme:themeReducer,
+    friends:addToFriendsReducer,
+    friendsList:getFriendsReducer,
+    editName:editNameReducer,
+    editPassword:editPasswordReducer
+
 })
 const store = createStore(rootReducer,initialState,composeWithDevTools(applyMiddleware(saga)))
 saga.run(rootWatcher)

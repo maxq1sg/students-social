@@ -17,12 +17,24 @@ import UserSearchResult from "./UserSearchResult";
 import SearchInput from "./SearchInput";
 import FilterSelect from "./FilterSelect/FilterSelect";
 import GroupsSearchResult from "./GroupsSearchResult";
+import { useComponentWillMount } from "../../../hooks/useComponentWillMount";
+import { ITheme } from "../../DarkMode/themes";
 
 const SearchResults = styled.div`
+  margin-top: 20px;
   font-size: 1.5em;
   font-weight: bold;
-  color: #0d3670;
+  color: ${({ theme }: { theme: ITheme }) => theme.text};
   padding-bottom: 15px;
+`;
+
+const UserSearchContainer = styled.div`
+  background: ${({ theme }: { theme: ITheme }) => theme.secondary};
+  padding: 20px;
+  border-radius: 15px;
+  @media (max-width: 500px) {
+    padding: 0;
+  }
 `;
 const UsersSearchPage = () => {
   const [keyword, setKeyword] = useState<string>("");
@@ -31,7 +43,12 @@ const UsersSearchPage = () => {
     (state: RootState) => state.searchResults
   );
   const dispatch = useDispatch();
-  console.log(searchTypeFilter);
+
+  useComponentWillMount(() => {
+    dispatch({
+      type: ESearchActionType.SEARCH_RESET,
+    });
+  });
   useEffect(() => {
     return () => {
       setKeyword("");
@@ -45,17 +62,18 @@ const UsersSearchPage = () => {
       <Helmet>
         <title>Поиск</title>
       </Helmet>
-      <div>
-        <SearchInput {...{ keyword, setKeyword, searchTypeFilter }} />
-        <FilterSelect {...{ searchTypeFilter, setSearchTypeFilter }} />
-      </div>
+      <UserSearchContainer>
+        <SearchInput
+          {...{ keyword, setKeyword, searchTypeFilter, setSearchTypeFilter }}
+        />
+      </UserSearchContainer>
       {loading && <Loader />}
       {finish ? (
         searchResults.length !== 0 ? (
           <>
             <SearchResults>Результаты поиска</SearchResults>
             {searchResults.map((result: any) => {
-              return searchTypeFilter === "users" ? (
+              return result.friends ? (
                 <UserSearchResult user={result} />
               ) : (
                 <GroupsSearchResult group={result} />

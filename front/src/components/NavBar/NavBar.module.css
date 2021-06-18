@@ -1,15 +1,28 @@
 .link-name {
+  display: block;
   color: white;
   text-decoration: none;
+  width: 100%;
 }
-.activeLink{
-    color:yellow
+.link-name:hover {
+  color: gold;
+}
+.activeLink {
+  color: yellow;
 }
 
-.arrow{
-  color:white
+.arrow {
+  color: white;
 }
-.icon{
+.icon {
   padding-right: 5px;
   transform: translateY(4px);
+}
+span {
+
+}
+.hidden{
+  opacity:0;
+  visibility:0;
+  display: none;
 }

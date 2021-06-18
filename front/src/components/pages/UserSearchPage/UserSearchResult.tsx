@@ -2,11 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import { IUser } from "../../../redux/reducers/types";
 import LittleAva from "../../Course/LittleAva";
+import { ITheme } from "../../DarkMode/themes";
+import Status from "../../../components/Status/Status";
+import { NavLink } from "react-router-dom";
+import CustomNavLink from "../../CustomNavlink/CustomNavlink";
 export const SearchResultWrapper = styled.div`
-  box-shadow: 0 0 5px black;
+  box-shadow: ${({ theme }: { theme: ITheme }) => theme.shadow};
   margin: 10px;
-  padding:10px;
-  display:flex
+  padding: 10px;
+  display: flex;
+  background: ${({ theme }: { theme: ITheme }) => theme.secondary};
 `;
 // const FlexContainer = styled.div`
 //   display: flex;
@@ -14,7 +19,6 @@ export const SearchResultWrapper = styled.div`
 const FullName = styled.div`
   font-size: 1em;
 `;
-const Status = styled.div``
 const DataContainer = styled.div`
   margin-left: 15px;
 `;
@@ -22,13 +26,15 @@ const UserSearchResult = ({ user }: { user: IUser }) => {
   const id = user._id ?? "max";
   return (
     <SearchResultWrapper>
-        <div>
-          <LittleAva id={id} name={user.fullName} />
-        </div>
-        <DataContainer>
-          <FullName>{user.fullName}</FullName>
-          <Status>{user.teacher ? "преподаватель" : "студент"}</Status>
-        </DataContainer>
+      <div>
+        <LittleAva isPerson={true} id={id} letter={user.fullName[0]} />
+      </div>
+      <DataContainer>
+        <FullName>
+          <CustomNavLink to={`/${id}`}>{user.fullName}</CustomNavLink>
+        </FullName>
+        <Status>{user.teacher ? "преподаватель" : "студент"}</Status>
+      </DataContainer>
     </SearchResultWrapper>
   );
 };

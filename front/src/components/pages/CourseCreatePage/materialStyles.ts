@@ -3,11 +3,17 @@ const useStyles = makeStyles(theme=>({
     table:{
       maxWidth:"800px",
       overflow:"hidden",
+      marginBottom:"15px",
     },
     relative:{
       position:"relative",
-
     },
+    div:{      overflowX: "auto",
+    marginRight: "auto",
+    marginLeft: "auto"},
+    // paper:{
+    //   overflowX:"auto"
+    // },
     absolute:{
       position:"absolute",
       top:"50%",

@@ -8,6 +8,14 @@ import { userLoginWatcher } from "../reducers/loginReducer";
 import { scheduleWatcher } from "../reducers/scheduleReducer";
 import { searchWatcher } from "../reducers/searchReducer";
 import { teachersWatcher } from "../reducers/teachersReducer";
+import {getMainGroupInfoWatcher} from "../reducers/getMainGroupInfoReducer"
+import { groupCoursesWatcher } from "../reducers/getGroupCoursesReducer";
+import { groupMembersWatcher } from "../reducers/getGroupMembersReducer";
+import { allowedToEditWatcher } from "../reducers/allowedToEdit";
+import { addToFriendsWatcher } from "../reducers/addToFriendsReducer";
+import { getFriendsWatcher } from "../reducers/getFriendsReducer";
+import { editNameWatcher } from "../reducers/editNameReducer";
+import { editPasswordWatcher } from "../reducers/editPasswordReducer";
 
 export default function* rootWatcher(){
     yield all([userLoginWatcher(),
@@ -18,6 +26,14 @@ export default function* rootWatcher(){
         getCoursesWatcher(),
         singleCourseWatcher(),
         searchWatcher(),
-        singleUserWatcher()
+        singleUserWatcher(),
+        getMainGroupInfoWatcher(),
+        groupCoursesWatcher(),
+        groupMembersWatcher(),
+        allowedToEditWatcher(),
+        addToFriendsWatcher(),
+        getFriendsWatcher(),
+        editNameWatcher(),
+        editPasswordWatcher()
     ])
 }

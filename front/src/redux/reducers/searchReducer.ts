@@ -46,7 +46,6 @@ export const searchReducer = (
   }
 };
 function fetchSearch({ keyword, resultType }: ISearchPayload) {
-  console.log(keyword,resultType)
   return axios.get(`/api/search/${resultType}?keyword=${keyword}`);
 }
 

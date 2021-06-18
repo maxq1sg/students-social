@@ -5,7 +5,7 @@ import { RouteComponentProps, useHistory } from "react-router-dom";
 
 import "./SearchBar.css";
 
-const StyledInput = styled.input`
+export const StyledInput = styled.input`
   border: none;
   width: 100%;
   &:focus {

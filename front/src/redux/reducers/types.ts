@@ -4,9 +4,16 @@ export enum EUserLogin{
     USER_LOGIN_FAILURE="USER_LOGIN_FAILURE",
     USER_LOGIN="USER_LOGIN",
     USER_LOGOUT="USER_LOGOUT",
-    PUSH_NEW_USER_COURSE="PUSH_NEW_USER_COURSE"
+    PUSH_NEW_USER_COURSE="PUSH_NEW_USER_COURSE",
+    USER_FRIEND="USER_FRIEND",
+    USER_NAME_MODIFY="USER_NAME_MODIFY"
 }
-
+export interface IGroup {
+    profession: string;
+    year: number;
+    short: string;
+    _id: string;
+  };
 export interface IAction{
     type:EUserLogin,
     payload:any
@@ -20,7 +27,8 @@ export interface IUser{
     id:string,
     fullName:string,
     token?:string,
-    _id?:string
+    _id:string,
+    friends:any[]
 }
 export interface ICourse{
     _id:string,
@@ -30,7 +38,8 @@ export interface ICourse{
     password:string,
     beginDate:Date,
     endDate:Date,
-    description:string
+    description:string,
+    tasks:any[]
 }
 
 export interface IUserLoginState{

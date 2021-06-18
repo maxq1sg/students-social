@@ -8,6 +8,7 @@ import Loader from "../../Loader/Loader";
 import styled from "styled-components";
 import Message from "../../Message/Messgae";
 import { Helmet } from "react-helmet";
+import { useParams } from "react-router-dom";
 
 export const GridContainer = styled.div`
   display: grid;
@@ -27,9 +28,15 @@ const CoursesPage = () => {
   const { user }: { user: IUser | null } = useSelector(
     (state: RootState) => state.login
   );
+  const { id: pathId } = useParams<{ id: string }>();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch({ type: EGetCoursesActionType.GET_COURSES, payload: user?.id });
+    dispatch({
+      type: EGetCoursesActionType.GET_COURSES,
+      payload: {
+        userId: pathId,
+      },
+    });
 
     return () => {
       dispatch({ type: EGetCoursesActionType.COURSES_RESET });

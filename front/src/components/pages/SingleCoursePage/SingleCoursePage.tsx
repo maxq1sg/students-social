@@ -7,10 +7,11 @@ import { RootState } from "../../../redux/store";
 import { ISingleCourseState } from "../../../redux/reducers/getSingleCourseReducer";
 import Loader from "../../Loader/Loader";
 import { Helmet } from "react-helmet";
+import TaskList from "./TaskList";
 
 const SingleCoursePage = () => {
   const history = useHistory();
-  const { loading, done, course, error } = useSelector(
+  const { loading, success, course, error } = useSelector(
     (state: RootState): ISingleCourseState => state.singleCourse
   );
   const { id: courseId } = useParams<{ id: string }>();
@@ -26,19 +27,18 @@ const SingleCoursePage = () => {
   }, []);
   const location = useLocation();
   useEffect(() => {
-    if (done && error) {
+    if (error) {
       history.push(`/courses/access/${courseId}`, { from: location.pathname });
     }
-  });
+  }, [error]);
 
-  // }, [done]);
   return (
     <>
       <Helmet>
         <title>Курс</title>
       </Helmet>
       {loading && <Loader />}
-      {done && course && <div>добро пожаловать</div>}
+      {success && course && <TaskList course={course}/>}
     </>
   );
 };

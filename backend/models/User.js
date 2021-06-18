@@ -26,20 +26,27 @@ const userSchema = mongoose.Schema({
   group: {
     type: mongoose.Schema.Types.ObjectId,
     required: false,
-    autopopulate: { maxDepth: 2 },
+    // autopopulate: { maxDepth: 2 },
     ref: "Group",
   },
-  courses: [
+  friends: [
     {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "Course",
-      autopopulate: { maxDepth: 2 },
+      ref: "User",
     },
   ],
+  // courses: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     required: true,
+  //     ref: "Course",
+  //     // autopopulate: { maxDepth: 2 },
+  //   },
+  // ],
 });
 
-userSchema.plugin(autopopulate);
+// userSchema.plugin(autopopulate);
 userSchema.methods.matchPasswords = function (password) {
   return bcrypt.compare(password, this.password);
 };

@@ -3,15 +3,18 @@ import { useHistory } from "react-router";
 import SearchIcon from "@material-ui/icons/Search";
 import { ESearchActionType } from "../../../redux/reducers/searchReducer";
 import { useDispatch } from "react-redux";
-
+import { StyledInput } from "../../SearchBar/Input";
+import FilterSelect from "./FilterSelect/FilterSelect";
 const SearchInput = ({
   keyword,
   setKeyword,
   searchTypeFilter,
+  setSearchTypeFilter,
 }: {
   keyword: string;
   setKeyword: (arg: string) => void;
   searchTypeFilter: string;
+  setSearchTypeFilter: (arg: string) => void;
 }) => {
   const dispatch = useDispatch();
   const submitHandler = (e: SyntheticEvent) => {
@@ -30,15 +33,22 @@ const SearchInput = ({
     }
   };
   return (
-    <form onSubmit={submitHandler} className="input-wrapper">
-      <SearchIcon className="search-icon" />
-      <input
-        value={keyword}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setKeyword(e.target.value)
-        }
-        placeholder="Поиск пользователя"
-      />
+    <form onSubmit={submitHandler}>
+      <div className="input-wrapper">
+        <SearchIcon className="search-icon" />
+        <StyledInput
+          value={keyword}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setKeyword(e.target.value)
+          }
+          placeholder={
+            searchTypeFilter == "users"
+              ? "Поиск пользователя..."
+              : "Поиск группы..."
+          }
+        />
+      </div>
+      <FilterSelect {...{ searchTypeFilter, setSearchTypeFilter }} />
     </form>
   );
 };

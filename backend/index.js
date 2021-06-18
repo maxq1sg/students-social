@@ -15,6 +15,8 @@ import usersRoute from "./routes/usersRoute.js";
 import messageRoute from "./routes/messageRoute.js";
 import clearRoute from "./routes/clearCourses.js";
 import searchRoute from "./routes/search/searchRoute.js";
+import testRoute from "./routes/testRoute.js";
+import friendsRoute from "./routes/friendsRoute.js";
 
 const app = express();
 
@@ -34,6 +36,8 @@ app.use("/api/users", usersRoute);
 app.use("/api/messages", messageRoute);
 app.use("/api/clear", clearRoute);
 app.use("/api/search", searchRoute);
+app.use("/api/test", testRoute);
+app.use("/api/friends", friendsRoute);
 
 app.listen(3001, () => {
   console.log("server is running");

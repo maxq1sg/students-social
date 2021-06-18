@@ -7,7 +7,7 @@ const courseSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "User",
-      autopopulate: { maxDepth: 2 },
+      // autopopulate: { maxDepth: 2 },
     },
   ],
   groups: [
@@ -15,8 +15,11 @@ const courseSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "Group",
-      autopopulate: { maxDepth: 2 },
+      // autopopulate: { maxDepth: 2 },
     },
+  ],
+  students: [
+    { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
   ],
   name: String,
   password: String,
@@ -29,7 +32,7 @@ const courseSchema = mongoose.Schema({
     },
   ],
 });
-courseSchema.plugin(autopopulate);
+// courseSchema.plugin(autopopulate);
 const Course = mongoose.model("Course", courseSchema);
 
 export default Course;

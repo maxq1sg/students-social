@@ -1,6 +1,7 @@
 import React from "react";
 import MuiAlert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core";
+import styled from "styled-components";
 
 type severity = "error" | "warning" | "info" | "success";
 interface IMessageProps {
@@ -8,18 +9,22 @@ interface IMessageProps {
   children: string;
   className?: string;
 }
-
+const MessageWrapper = styled.div`
+  margin: 15px 0;
+`;
 const Message = ({ severity, children, className }: IMessageProps) => {
   //   const styles = useStyles();
   return (
-    <MuiAlert
-      className={className}
-      elevation={10}
-      variant="filled"
-      severity={severity}
-    >
-      {children}
-    </MuiAlert>
+    <MessageWrapper>
+      <MuiAlert
+        className={className}
+        elevation={10}
+        variant="filled"
+        severity={severity}
+      >
+        {children}
+      </MuiAlert>
+    </MessageWrapper>
   );
 };
 

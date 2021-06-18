@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { Avatar, Button, makeStyles } from "@material-ui/core";
 import styled from "styled-components";
 import "./SearchBar.css";
 import { IUser } from "../../redux/reducers/types";
 import Dropdown from "./Dropdown";
+import LittleAva from "../Course/LittleAva";
+import { useEffect } from "react";
 const CustomAvatar = styled(Avatar)`
   height: 100px;
   background-color: orange;
@@ -37,33 +39,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MiniProfileContainer = styled.div`
+  padding-left: 10px;
   display: flex;
   align-items: center;
+  justify-content: center;
   position: relative;
 `;
 
 const MiniProfile = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  const [isMobile, setIsMobile] = useState(true);
+  useEffect(() => {
+    window.innerWidth > 500 ? setIsMobile(false) : setIsMobile(true);
+  }, []);
   const classes = useStyles();
   const { user }: { user: IUser | null } = useSelector(
     (state: RootState) => state.login
   );
 
-  const clickHandler = () => {
-    setDropdownOpen((prev) => !prev);
-  };
   return (
     <MiniProfileContainer>
       <Avatar className={classes.avatar}>
-        {user && user.name[0].toUpperCase()}
+        {user && user.name[4].toUpperCase()}
       </Avatar>
       <UserInfoContainer>
-        <UserName>{user?.name}</UserName>
-        <div>{user?.teacher ? "Преподаватель" : "Студент"}</div>
+        {!isMobile && (
+          <>
+            <UserName>{user?.name}</UserName>
+            <div>{user?.teacher ? "Преподаватель" : "Студент"}</div>
+          </>
+        )}
       </UserInfoContainer>
-      <MoreVertIcon onClick={clickHandler} />
-      {dropdownOpen && <Dropdown />}
+      <Dropdown />
     </MiniProfileContainer>
   );
 };
