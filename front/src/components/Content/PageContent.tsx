@@ -22,6 +22,7 @@ import DefaultPage from "../pages/DefaultPage/DefaultPage";
 
 const ContentWrapper = styled.div`
   flex: 1 0;
+  margin: 0 8px;
 `;
 const PageContentWrapper = styled.div`
   padding: 20px;

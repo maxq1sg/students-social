@@ -49,7 +49,7 @@ const FormSubmit = styled.button.attrs(({ disabled }) => ({
     opacity: ${({ disabled }) => (disabled ? 0.7 : 0.9)};
   }
 `;
-const LoginForm = () => {
+const LoginForm: React.FC = ({ children }) => {
   const history = useHistory();
   const [name, setName] = useState<string>("eco.bern");
   const [password, setPassword] = useState<string>("123");
@@ -83,6 +83,7 @@ const LoginForm = () => {
       <FormSubmit onClick={() => {}} disabled={loading}>
         {loading ? "Выполняется вход" : "войти"}
       </FormSubmit>
+      {children}
     </FormWrapper>
   );
 };

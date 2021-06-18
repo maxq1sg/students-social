@@ -23,7 +23,7 @@ const LoginPageWrapper = styled.div`
   align-items: center;
 `;
 const LoginFormWrapper = styled.div`
-  flex: 350px 1 0;
+  flex: 1 1 200px;
 `;
 const LoginPage = () => {
   const { error } = useSelector((state: RootState) => state.login);
@@ -37,12 +37,9 @@ const LoginPage = () => {
         <LoginPageContainer>
           <Intro />
           <LoginFormWrapper>
-            <LoginForm />
-            {error && (
-              <Message className="message-login" severity="error">
-                {error}
-              </Message>
-            )}
+            <LoginForm>
+              {error && <Message severity="error">{error}</Message>}
+            </LoginForm>
           </LoginFormWrapper>
         </LoginPageContainer>
       </LoginPageWrapper>

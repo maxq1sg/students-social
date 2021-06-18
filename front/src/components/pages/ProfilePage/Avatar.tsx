@@ -11,7 +11,7 @@ import StyledButton from "../../StyledButton/StyledButton";
 import UniversalButton from "./UniversalButton";
 
 const ProfileWrapper = styled.div`
-  margin: 0 15px 15px 0;
+  margin: 10px;
   flex: 1 1 250px;
   background: ${({ theme }: { theme: ITheme }) => theme.secondary};
   padding: 10px 10px 20px 10px;
@@ -27,7 +27,7 @@ const AvatarPhoto = styled.div`
     height: 150px;
   }
 `;
-const ProfileAvatar = ({ user }: { user: IUser|null }) => {
+const ProfileAvatar = ({ user }: { user: IUser | null }) => {
   console.log(user);
   return (
     <ProfileWrapper>

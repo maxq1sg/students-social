@@ -6,6 +6,9 @@ const SectionTitle = styled.h1`
   font-size: 3em;
   text-align: center;
   margin: 10px 0;
+  @media (max-width: 500px) {
+    font-size: 1.5em;
+  }
 `;
 const SubTitle = styled.h3`
   color: ${({ theme }: { theme: ITheme }) => theme.text};

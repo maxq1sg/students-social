@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 const IntroContainer = styled.div`
-  flex: 1 1 350px;
-  padding-right: 50px;
+  flex: 1 1 200px;
+  padding-right: 20px;
   position: relative;
-  margin-bottom: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 15px;
 `;
 const Title = styled.div`
   color: blue;
@@ -18,7 +18,7 @@ const IntroMessage = styled.div`
   font-size: 20px;
 `;
 const IntroWrapper = styled.div`
-  flex: 1 0 350px;
+  flex: 1 0 200px;
 `;
 const Intro = () => {
   return (

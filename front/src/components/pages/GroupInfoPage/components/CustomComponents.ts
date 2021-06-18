@@ -10,6 +10,9 @@ width:100%;
 }
 & td{
     padding: 15px;
+    @media(max-width:500px){
+        padding: 10px 4px;
+    }
 }
 `
 

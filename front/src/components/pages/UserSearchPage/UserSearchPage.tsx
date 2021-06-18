@@ -33,7 +33,7 @@ const UserSearchContainer = styled.div`
   padding: 20px;
   border-radius: 15px;
   @media (max-width: 500px) {
-    padding: 0;
+    padding: 6px;
   }
 `;
 const UsersSearchPage = () => {

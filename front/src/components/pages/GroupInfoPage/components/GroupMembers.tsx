@@ -24,10 +24,10 @@ const GroupMembersContainer = styled.div`
 `;
 const FlexContainer = styled.div`
   display: flex;
+  align-items: center;
 `;
 const MemberName = styled.div`
   padding-left: 20px;
-  line-height: 50px;
 `;
 const CustomLink = styled(Link)`
   color: ${({ theme }: { theme: ITheme }) => theme.colorReverse};

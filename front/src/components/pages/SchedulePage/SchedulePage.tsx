@@ -13,7 +13,7 @@ const ScheduleWrapper = styled.div`
   margin: 0 auto;
   justify-content: center;
   grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(auto-fill, minmax(400px, 500px));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 500px));
   grid-gap: 20px;
 `;
 

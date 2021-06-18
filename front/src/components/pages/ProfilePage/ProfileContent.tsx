@@ -12,6 +12,7 @@ const ContentWrapper = styled.div`
   align-items: flex-start;
   padding: 10px 10px 20px 10px;
   background: ${({ theme }: { theme: ITheme }) => theme.secondary};
+  margin: 10px;
 
   border-radius: 10px;
   & td {
