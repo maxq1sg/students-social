@@ -27,7 +27,8 @@ function App() {
       history.push("/login");
       localStorage.removeItem("schedule");
     }
-  }, [user,history]);
+    console.log("this useefefef");
+  }, [user, history]);
 
   return (
     <>

@@ -10,7 +10,7 @@ function ProtectedRoute({
   path,
 }: {
   component: React.FC;
-  exact: boolean;
+  exact?: boolean;
   path: string;
 }) {
   const { user }: { user: IUser | null } = useSelector(

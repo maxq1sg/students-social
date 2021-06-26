@@ -35,52 +35,51 @@ const PageContent = () => {
       <MainContainer>
         <PageContentWrapper>
           <Switch>
-            <Route exact path="/:id([0-9a-fA-F]{24})">
-              <ProfilePage />
-            </Route>
-            <Route exact path="/:id([0-9a-fA-F]{24})/edit">
-              <EditPage />
-            </Route>
+            <ProtectedRoute
+              exact
+              path="/:id([0-9a-fA-F]{24})"
+              component={ProfilePage}
+            />
+            <ProtectedRoute
+              exact
+              path="/:id([0-9a-fA-F]{24})/edit"
+              component={EditPage}
+            />
+
             <ProtectedRoute exact path="/:id/courses" component={CoursesPage} />
-            <Route exact path="/:id/friends">
-              <FriendsPage />
-            </Route>
-            <Route exact path="/schedule">
-              <SchedulePage />
-            </Route>
-            {/* <Route exact path="/">
-          <MainPage />
-        </Route> */}
-            <Route exact path="/messages">
-              <MessagePage />
-            </Route>
-            {/* <Route exact path="/settings">
-              <SettingsPage />
-            </Route> */}
-            <Route exact path="/create-course">
-              <CourseCreatePage />
-            </Route>
-            <Route exact path="/courses/:id">
-              <SingleCoursePage />
-            </Route>
-            <Route exact path="/courses/access/:id">
-              <SingleCourseAccessPage />
-            </Route>
-            <Route exact path="/search/courses/:keyword">
-              <CourseSearchPage />
-            </Route>
-            <Route exact path="/search">
-              <UsersSearchPage />
-            </Route>
-            {/* <Route exact path="/users/:id">
-          <ProfilePage />
-        </Route> */}
-            <Route exact path="/groups/:id">
-              <GroupInfoPage />
-            </Route>
-            <Route path="/">
-              <DefaultPage />
-            </Route>
+            <ProtectedRoute exact path="/:id/friends" component={FriendsPage} />
+            <ProtectedRoute exact path="/schedule" component={SchedulePage} />
+            <ProtectedRoute exact path="/messages" component={MessagePage} />
+
+            <ProtectedRoute
+              exact
+              path="/create-course"
+              component={CourseCreatePage}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/courses/:id"
+              component={SingleCoursePage}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/courses/access/:id"
+              component={SingleCourseAccessPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/search/courses/:keyword"
+              component={CourseSearchPage}
+            />
+            <ProtectedRoute exact path="/search" component={UsersSearchPage} />
+            <ProtectedRoute
+              exact
+              path="/groups/:id"
+              component={GroupInfoPage}
+            />
+            <ProtectedRoute path="/" component={DefaultPage} />
           </Switch>
         </PageContentWrapper>
       </MainContainer>
