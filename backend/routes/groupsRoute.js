@@ -8,7 +8,6 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    console.log("yes");
     const groups = await Group.find({});
     res.json(
       groups.map((item, index) => ({
@@ -23,7 +22,6 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
     const group = await Group.findById(id);
     if (!group) {
       throw new Error("Группа не найдена!");
@@ -36,11 +34,9 @@ router.get("/:id", async (req, res) => {
 router.get("/:id/members", async (req, res) => {
   try {
     const { id } = req.params;
-    console.log("id", id);
     const members = await User.find({
       group: mongoose.Types.ObjectId(id),
     }).select("fullName");
-    console.log(members);
     if (!members) {
       throw new Error("Пользователи не найдены");
     }
@@ -52,7 +48,6 @@ router.get("/:id/members", async (req, res) => {
 router.get("/:id/courses", async (req, res) => {
   try {
     const { id } = req.params;
-    console.log("id", id);
     const courses = await Course.find({
       groups: {
         $in: [mongoose.Types.ObjectId(id)],

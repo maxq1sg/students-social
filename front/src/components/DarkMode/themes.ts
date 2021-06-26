@@ -9,7 +9,10 @@ export interface ITheme{
     avaColor:string,
     colorReverse:string,
     status:string,
-    hover:string
+    hover:string,
+    green:string,
+    red:string,
+    input:string
 }
 
 export const lightTheme:ITheme = {
@@ -23,7 +26,10 @@ export const lightTheme:ITheme = {
     avaColor:"#fafafa",
     colorReverse:"#222",
     status:"#0d3670",
-    hover: "#eee"
+    hover: "#eee",
+    green:"rgb(32, 227, 61)",
+    red:"rgb(255, 66, 48)",
+    input:"#fff"
 }
 export const darkTheme:ITheme = {
     primary: '#363537',
@@ -36,7 +42,10 @@ export const darkTheme:ITheme = {
     avaColor:"#222",
     colorReverse:"#fafafa",
     status:"#ddd",
-    hover:"#333"
+    hover:"#333",
+    green:"rgb(32, 227, 61)",
+    red:"rgb(255, 66, 48)",
+    input:"#333"
 }
 export interface Theme{
     body:string,

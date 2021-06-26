@@ -7,7 +7,7 @@ const TaskList = ({ course }: { course: ICourse }) => {
   return (
     <>
       <h1>Задания курса</h1>
-      {course.tasks.length == 0 ? (
+      {course.tasks.length === 0 ? (
         <Message severity="warning">
           {"На данный момент задания в курс не добавлены!"}
         </Message>

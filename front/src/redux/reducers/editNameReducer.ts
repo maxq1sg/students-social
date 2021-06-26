@@ -63,7 +63,6 @@ function* getScheduleWorker(action:any){
        yield put({type:EEditNameActionType.EDIT_NAME_SUCCESS,payload:data})
        const user:ResponseGenerator = yield select(getUser)
        const {name,fullName} = data
-       console.log({...user,name,fullName})
        localStorage.setItem("login",JSON.stringify({...user,name,fullName}))
     } catch (error) {
         const message =

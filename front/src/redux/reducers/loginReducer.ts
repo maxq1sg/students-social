@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {call, put, takeEvery} from "redux-saga/effects"
-import { RootState } from '../store';
-import { EUserLogin, IAction, IUserLoginState,IUser } from './types';
+import { EUserLogin, IAction, IUserLoginState } from './types';
 import produce from "immer"
 
 

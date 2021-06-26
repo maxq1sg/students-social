@@ -5,8 +5,6 @@ import {
   EGetGroupMebersActionType,
   IGroupMembersState,
 } from "../../../../redux/reducers/getGroupMembersReducer";
-import { IUser } from "../../../../redux/reducers/types";
-import { SectionTitle } from "./SectionTitle";
 import { RootState } from "../../../../redux/store";
 import Loader from "../../../Loader/Loader";
 import styled from "styled-components";
@@ -49,7 +47,7 @@ const GroupMembers = () => {
         type: EGetGroupMebersActionType.GET_GROUP_MEMBERS_RESET,
       });
     };
-  }, []);
+  }, [dispatch, id]);
   return (
     <GroupMembersContainer>
       {loading && <Loader width="60px" />}

@@ -1,6 +1,7 @@
 import { call, put, takeEvery } from '@redux-saga/core/effects';
 import axios from 'axios';
 import { IScheduleState, EScheduleActionType } from './types';
+
 export const scheduleReducer = (state:IScheduleState={loading:false,schedule:null},action:{type:EScheduleActionType,payload:any}):IScheduleState=>{
     switch(action.type){
         case(EScheduleActionType.SCHEDULE_REQUEST):

@@ -11,6 +11,7 @@ import { RootState } from "../../../redux/store";
 import Message from "../../Message/Messgae";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { EModalActions } from "../../../redux/reducers/modalReducer";
 
 const InputWrapper = styled.div`
   margin: 10px 0;
@@ -18,7 +19,6 @@ const InputWrapper = styled.div`
 
 const NameForms = ({ data }: { data: IUser }) => {
   const history = useHistory();
-  console.log(data);
   const { loading, error, success } = useSelector(
     (state: RootState) => state.editName
   );
@@ -27,13 +27,19 @@ const NameForms = ({ data }: { data: IUser }) => {
     if (success) {
       dispatch({ type: EUserLogin.USER_NAME_MODIFY, payload: { ...success } });
       history.push(`/${data.id}`);
+      setTimeout(() => {
+        dispatch({
+          type: EModalActions.OPEN_MODAL,
+          payload: "Изменения внесены!",
+        });
+      }, 300);
     }
-  }, [success]);
+  }, [success, data.id, dispatch, history]);
   useEffect(() => {
     return () => {
       dispatch({ type: EEditNameActionType.EDIT_NAME_RESET });
     };
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <Formik
@@ -44,7 +50,6 @@ const NameForms = ({ data }: { data: IUser }) => {
         }}
         validationSchema={userDataValidation}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
           dispatch({
             type: EEditNameActionType.EDIT_NAME,
             payload: { ...values, id: data.id, token: data.token },
@@ -58,6 +63,7 @@ const NameForms = ({ data }: { data: IUser }) => {
               name="fullName"
               type="text"
               placeholder="Полное имя"
+              autoComplete="on"
             />
           </InputWrapper>
           <InputWrapper>
@@ -65,11 +71,13 @@ const NameForms = ({ data }: { data: IUser }) => {
               label=""
               name="name"
               type="text"
-              placeholder="Полное имя"
+              placeholder="имя"
+              autoComplete="on"
             />
           </InputWrapper>
           <InputWrapper>
             <MyTextInput
+              autoComplete="on"
               label=""
               name="password"
               type="password"

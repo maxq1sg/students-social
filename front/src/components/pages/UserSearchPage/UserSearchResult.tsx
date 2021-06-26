@@ -4,7 +4,6 @@ import { IUser } from "../../../redux/reducers/types";
 import LittleAva from "../../Course/LittleAva";
 import { ITheme } from "../../DarkMode/themes";
 import Status from "../../../components/Status/Status";
-import { NavLink } from "react-router-dom";
 import CustomNavLink from "../../CustomNavlink/CustomNavlink";
 export const SearchResultWrapper = styled.div`
   box-shadow: ${({ theme }: { theme: ITheme }) => theme.shadow};

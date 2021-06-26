@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {call, put, takeEvery} from "redux-saga/effects"
-import { ICourse, IGroup, IUser } from './types';
+import { IUser } from './types';
 
 export interface IGroupMembersState {
     loading: boolean;

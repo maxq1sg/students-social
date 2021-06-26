@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { AppDispatch, RootState } from "../../../redux/store";
+import { RootState } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { EUserLogin, IUserLoginState } from "../../../redux/reducers/types";
-import { Redirect, useHistory } from "react-router";
-import App from "../../../App";
+import { EUserLogin} from "../../../redux/reducers/types";
+import { useHistory } from "react-router";
+import { EModalActions } from "../../../redux/reducers/modalReducer";
 
 const FormWrapper = styled.form`
   flex: 1 1 250px;
@@ -28,9 +28,6 @@ const FormInput = styled.input.attrs(
   margin-bottom: 15px;
 `;
 
-const FormInputPassword = styled(FormInput).attrs({
-  type: "password",
-})``;
 const FormSubmit = styled.button.attrs(({ disabled }) => ({
   type: "submit",
   disabled,
@@ -63,9 +60,15 @@ const LoginForm: React.FC = ({ children }) => {
 
   useEffect(() => {
     if (user) {
-      history.push("/schedule");
+      history.push(`/${user.id}`);
+      setTimeout(() => {
+        dispatch({
+          type: EModalActions.OPEN_MODAL,
+          payload: `Добро пожаловать, ${user.fullName.split(" ")[1]}`,
+        });
+      }, 300);
     }
-  }, [user]);
+  }, [user,history,dispatch]);
   return (
     <FormWrapper onSubmit={submitHandler}>
       <FormInput

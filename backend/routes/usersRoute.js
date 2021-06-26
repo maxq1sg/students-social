@@ -29,24 +29,6 @@ router.get("/teachers", protect, async (req, res) => {
   }
 });
 
-//ГОВНОКОД
-
-// router.get("/courses/teachers", async (req, res) => {
-//   try {
-//     const { userId } = req.query;
-//     console.log(userId);
-//     console.log("first");
-//     const courses = await Course.find({
-//       teachers: {
-//         $in: [mongoose.Types.ObjectId(userId)],
-//       },
-//     });
-//     // .populate("teachers");
-//     res.json(courses);
-//   } catch (error) {
-//     res.status(404).json({ message: error.message });
-//   }
-// });
 router.get("/:id/friends", async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id).populate("friends");
@@ -146,16 +128,27 @@ router.get("/:id", async (req, res) => {
       throw new Error(errorMessage);
     }
     const user = await User.findById(id).lean();
-    const groupId = user.teacher ? null : user.group._id;
-    const courses = await Course.find({
-      groups: {
-        $in: [mongoose.Types.ObjectId(groupId)],
-      },
-    });
     if (!user) {
       throw new Error(errorMessage);
     }
-    res.json({ ...user, courses });
+    const groupId = user.teacher ? null : user.group._id;
+    if (user.teacher) {
+      const courses = await Course.find({
+        teachers: {
+          $in: [mongoose.Types.ObjectId(user._id)],
+        },
+      });
+
+      res.json({ ...user, courses });
+    } else {
+      const courses = await Course.find({
+        groups: {
+          $in: [mongoose.Types.ObjectId(groupId)],
+        },
+      });
+
+      res.json({ ...user, courses });
+    }
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

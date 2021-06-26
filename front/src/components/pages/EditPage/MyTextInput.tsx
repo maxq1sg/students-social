@@ -1,4 +1,4 @@
-import { FieldHookConfig, useField,ErrorMessage } from "formik";
+import { useField, ErrorMessage } from "formik";
 import styled from "styled-components";
 import { CustomField } from "../CourseCreatePage/CourseForm";
 import FormErrorMessage from "../CourseCreatePage/FormErrorMessage";
@@ -15,10 +15,7 @@ const MyTextInput = (props: any) => {
       <label htmlFor={props.id || props.name}>{props.label}</label>
       <ModifCustomField {...field} {...props} />
       {hasError && (
-        <ErrorMessage
-          name={props.name}
-          component={FormErrorMessage}
-        />
+        <ErrorMessage name={props.name} component={FormErrorMessage} />
       )}
     </>
   );

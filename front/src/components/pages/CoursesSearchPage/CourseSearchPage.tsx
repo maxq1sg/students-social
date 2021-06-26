@@ -6,7 +6,6 @@ import {
   ESearchActionType,
   ISearchState,
 } from "../../../redux/reducers/searchReducer";
-import { ICourse, IUser } from "../../../redux/reducers/types";
 import { RootState } from "../../../redux/store";
 import SingleCourse from "../../Course/SingleCourse";
 import Loader from "../../Loader/Loader";
@@ -19,7 +18,7 @@ import { ITheme } from "../../DarkMode/themes";
 const SearchResults = styled.div`
   font-size: 1.5em;
   font-weight: bold;
-  color: ${({ theme }: { theme: ITheme }) => theme.text};;
+  color: ${({ theme }: { theme: ITheme }) => theme.text};
   padding-bottom: 15px;
 `;
 const CourseSearchPage = () => {
@@ -39,7 +38,7 @@ const CourseSearchPage = () => {
         keyword,
       },
     });
-  }, [keyword]);
+  }, [keyword, dispatch]);
   useComponentWillMount(() => {
     dispatch({
       type: ESearchActionType.SEARCH_RESET,
@@ -51,6 +50,7 @@ const CourseSearchPage = () => {
         <title>Результаты поиска: {keyword}</title>
       </Helmet>
       {loading && <Loader />}
+      {error && <Message severity={"error"}>{error}</Message>}
       {finish ? (
         searchResults.length !== 0 ? (
           <>

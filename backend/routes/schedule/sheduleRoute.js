@@ -8,9 +8,12 @@ const router = express.Router();
 
 router.post("/", protect, async (req, res) => {
   try {
-    console.log("inside");
     const { year, short } = req.body;
-
+    if (!year) {
+      throw new Error(
+        "Расписание для преподавателей в данный момент не доступно!"
+      );
+    }
     const auth = new google.auth.GoogleAuth({
       keyFile: "credentials.json",
       scopes: "https://www.googleapis.com/auth/spreadsheets",
@@ -30,9 +33,8 @@ router.post("/", protect, async (req, res) => {
     const schedule = parseSchedule(values);
     res.json(schedule);
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Расписание в данный момент не доступно." });
+    const message = error.message || "Расписание в данный момент не доступно!";
+    res.status(500).json({ message });
   }
 });
 

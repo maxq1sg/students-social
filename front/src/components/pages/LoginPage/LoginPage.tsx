@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { IUser } from "../../../redux/reducers/types";
 import { RootState } from "../../../redux/store";
 import Message from "../../Message/Messgae";
 import Intro from "./Intro";

@@ -1,14 +1,10 @@
-import React, { useState } from "react";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { Avatar, Button, makeStyles } from "@material-ui/core";
+import { Avatar, makeStyles } from "@material-ui/core";
 import styled from "styled-components";
 import "./SearchBar.css";
 import { IUser } from "../../redux/reducers/types";
 import Dropdown from "./Dropdown";
-import LittleAva from "../Course/LittleAva";
-import { useEffect } from "react";
 
 const UserName = styled.div`
   font-size: 18px;

@@ -43,20 +43,22 @@ const ProfileContent = ({
   return (
     <ContentWrapper>
       <CustomTable>
-        <CustomTr>
-          <CustomTd>Полное имя</CustomTd>
-          <td>{user?.fullName}</td>
-        </CustomTr>
-        <CustomTr>
-          <CustomTd>Никнейм</CustomTd>
-          <td>{user?.name}</td>
-        </CustomTr>
-        <CustomTr>
-          <CustomTd>Статус</CustomTd>
-          <td>
-            <Status>{user?.teacher ? "преподаватель" : "студент"}</Status>
-          </td>
-        </CustomTr>
+        <tbody>
+          <CustomTr>
+            <CustomTd>Полное имя</CustomTd>
+            <td>{user?.fullName}</td>
+          </CustomTr>
+          <CustomTr>
+            <CustomTd>Никнейм</CustomTd>
+            <td>{user?.name}</td>
+          </CustomTr>
+          <CustomTr>
+            <CustomTd>Статус</CustomTd>
+            <td>
+              <Status>{user?.teacher ? "преподаватель" : "студент"}</Status>
+            </td>
+          </CustomTr>
+        </tbody>
       </CustomTable>
       <AddData isMe={isMe} user={user} />
 

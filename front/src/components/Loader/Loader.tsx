@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { css, keyframes } from "styled-components";
+
 import "./Loader.css";
 import { ContentLoader, LoaderAnimation } from "./LoaderAnimation";
 

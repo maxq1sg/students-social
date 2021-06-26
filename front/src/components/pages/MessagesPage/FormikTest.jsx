@@ -7,7 +7,6 @@ import { TextField } from "@material-ui/core";
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   const hasError = meta.touched && meta.error;
-  console.log(useField(props));
   return (
     <>
       <label htmlFor={props.id || props.name}>{label}</label>

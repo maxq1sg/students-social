@@ -1,8 +1,6 @@
 import { call, put, takeEvery } from '@redux-saga/core/effects';
 import axios from 'axios';
-import { select } from 'redux-saga/effects';
-import { RootState } from '../store';
-import { IUser } from './types';
+
 
 
 interface IEditPassword{
@@ -36,7 +34,6 @@ interface IFetchData{
 }
 
 function fetchEditPassword({id,oldPassword,newPassword,newPasswordConfirm,token}:IFetchData){
-    console.log(id,oldPassword,newPassword,newPasswordConfirm,token)
     const config = {
         headers: {
           "Content-Type": "application/json",

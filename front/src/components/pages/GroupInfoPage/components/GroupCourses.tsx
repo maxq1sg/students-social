@@ -28,7 +28,7 @@ const GroupCourses = () => {
       type: EGetGroupCoursesActionType.GET_GROUP_COURSES,
       payload: { id },
     });
-  }, []);
+  }, [dispatch, id]);
 
   return (
     <GroupMainInfoContainer>
@@ -41,7 +41,9 @@ const GroupCourses = () => {
             {courses.map((course) => (
               <tr>
                 <td>
-                  <CustomLink className="link" to={`/courses/${course._id}`}>{course.name}</CustomLink>
+                  <CustomLink className="link" to={`/courses/${course._id}`}>
+                    {course.name}
+                  </CustomLink>
                 </td>
               </tr>
             ))}

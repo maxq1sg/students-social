@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { IUser } from "../../../redux/reducers/types";
-import { NavLink } from "react-router-dom";
-import { ITheme } from "../../DarkMode/themes";
 import CustomNavLink from "../../CustomNavlink/CustomNavlink";
 import stringAnalyze from "./stringAnalyze";
+
 
 const FlexWrapper = styled.div`
   margin-top: 15px;
@@ -17,8 +16,6 @@ const InfoContainer = styled.div`
 `;
 
 const AddData = ({ isMe, user }: { isMe: boolean; user: IUser | null }) => {
-  console.log(user?._id || user?.id);
-
   return (
     <FlexWrapper>
       <InfoContainer>

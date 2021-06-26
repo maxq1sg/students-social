@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
 import styled from "styled-components";
 import {
   ESearchActionType,
   ISearchState,
 } from "../../../redux/reducers/searchReducer";
-import { ICourse, IUser } from "../../../redux/reducers/types";
 import { RootState } from "../../../redux/store";
-import SingleCourse from "../../Course/SingleCourse";
 import Loader from "../../Loader/Loader";
 import Message from "../../Message/Messgae";
-import { GridContainer } from "../CoursesPage/CoursesPage";
 import { Helmet } from "react-helmet";
 import UserSearchResult from "./UserSearchResult";
 import SearchInput from "./SearchInput";
-import FilterSelect from "./FilterSelect/FilterSelect";
 import GroupsSearchResult from "./GroupsSearchResult";
 import { useComponentWillMount } from "../../../hooks/useComponentWillMount";
 import { ITheme } from "../../DarkMode/themes";
@@ -56,7 +51,7 @@ const UsersSearchPage = () => {
         type: ESearchActionType.SEARCH_RESET,
       });
     };
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <Helmet>
@@ -68,15 +63,16 @@ const UsersSearchPage = () => {
         />
       </UserSearchContainer>
       {loading && <Loader />}
+      {error && <Message severity="error">{error}</Message>}
       {finish ? (
         searchResults.length !== 0 ? (
           <>
             <SearchResults>Результаты поиска</SearchResults>
-            {searchResults.map((result: any) => {
+            {searchResults.map((result: any, index: number) => {
               return result.friends ? (
-                <UserSearchResult user={result} />
+                <UserSearchResult key={index} user={result} />
               ) : (
-                <GroupsSearchResult group={result} />
+                <GroupsSearchResult key={index} group={result} />
               );
             })}
           </>

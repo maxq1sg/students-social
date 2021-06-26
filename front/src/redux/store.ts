@@ -7,7 +7,6 @@ import { getMainGroupInfoReducer } from './reducers/getMainGroupInfoReducer';
 import { scheduleReducer } from './reducers/scheduleReducer';
 import { userLoginReducer } from './reducers/loginReducer';
 import {createStore,combineReducers,applyMiddleware} from "redux"
-import navbarReducer from './reducers/navbarReducer'
 import {composeWithDevTools} from "redux-devtools-extension"
 import createSagaMiddleware from "redux-saga"
 import rootWatcher from "./saga/combineSagas"
@@ -21,6 +20,7 @@ import { getUserReducer } from './reducers/getUserReducer';
 import themeReducer from './reducers/themeReducer';
 import { editNameReducer } from './reducers/editNameReducer';
 import { editPasswordReducer} from './reducers/editPasswordReducer';
+import modalReducer from './reducers/modalReducer';
 
 const saga = createSagaMiddleware()
 
@@ -60,7 +60,8 @@ const rootReducer = combineReducers({
     friends:addToFriendsReducer,
     friendsList:getFriendsReducer,
     editName:editNameReducer,
-    editPassword:editPasswordReducer
+    editPassword:editPasswordReducer,
+    modal:modalReducer
 
 })
 const store = createStore(rootReducer,initialState,composeWithDevTools(applyMiddleware(saga)))

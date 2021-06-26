@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import styled from "styled-components";
 import {
   EGetGroupMainActionType,
   IGroupMainInfoState,
@@ -10,7 +9,7 @@ import { RootState } from "../../../../redux/store";
 import Loader from "../../../Loader/Loader";
 import Message from "../../../Message/Messgae";
 import { CustomTable } from "./CustomComponents";
-import { SectionTitle, SubTitle } from "./SectionTitle";
+import { SubTitle } from "./SectionTitle";
 import GroupMainInfoContainer from "./Wrapper";
 
 const GroupMainInfo = () => {
@@ -26,7 +25,7 @@ const GroupMainInfo = () => {
       type: EGetGroupMainActionType.GET_GROUP_MAIN_INFO,
       payload: { id },
     });
-  }, []);
+  }, [dispatch, id]);
   return (
     <>
       <GroupMainInfoContainer>

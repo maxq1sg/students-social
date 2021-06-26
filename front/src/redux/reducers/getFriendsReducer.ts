@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from '@redux-saga/core/effects';
 import axios from 'axios';
-import { ICourse, IUser } from './types';
+import { IUser } from './types';
 
 
 export interface IFriendsState{

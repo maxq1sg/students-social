@@ -1,8 +1,9 @@
-import React from "react";
 import styled from "styled-components";
 import { ITheme } from "../DarkMode/themes";
 import Input from "./Input";
 import MiniProfile from "./MiniProfile";
+
+
 const SearchBarFlex = styled.div`
   display: flex;
   flex-wrap: nowrap;

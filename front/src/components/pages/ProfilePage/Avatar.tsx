@@ -1,13 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { useHistory } from "react-router";
+
 import styled from "styled-components";
 import ava from "../../../images/default-ava.jpg";
-import { IGetUserState } from "../../../redux/reducers/getUserReducer";
 import { IUser } from "../../../redux/reducers/types";
-import { RootState } from "../../../redux/store";
 import { ITheme } from "../../DarkMode/themes";
-import StyledButton from "../../StyledButton/StyledButton";
 import UniversalButton from "./UniversalButton";
 
 const ProfileWrapper = styled.div`
@@ -28,7 +24,6 @@ const AvatarPhoto = styled.div`
   }
 `;
 const ProfileAvatar = ({ user }: { user: IUser | null }) => {
-  console.log(user);
   return (
     <ProfileWrapper>
       <AvatarPhoto />

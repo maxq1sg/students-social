@@ -28,19 +28,6 @@ router.post("/new", async (req, res) => {
       description,
     });
     await course.save();
-    // for (let item of groups) {
-    //   const groupMembers = await User.find({ group: item });
-    //   console.log(groupMembers);
-    //   for (let member of groupMembers) {
-    //     member.courses.push(course);
-    //     await member.save();
-    //   }
-    // }
-    // for (let item of teachers) {
-    //   const user = await User.findById(item);
-    //   user.courses.push(course);
-    //   await user.save();
-    // }
     res.json(course);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -56,12 +43,9 @@ router.get("/:id", async (req, res) => {
       throw new Error("Пользователя не существует!");
     }
     let hasAccess = false;
-    console.log("course", course);
     if (!user.group) {
       for (let teacher of course.teachers) {
-        // console.log(teacher.toString(), user._id.toString());
-        if (teacher.toString() == user._id.toString()) {
-          console.log("equal");
+        if (teacher._id.toString() == user._id.toString()) {
           hasAccess = true;
         }
       }

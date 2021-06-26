@@ -1,5 +1,4 @@
-import React, { SyntheticEvent, useState } from "react";
-import { useHistory } from "react-router";
+import React, { SyntheticEvent } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import { ESearchActionType } from "../../../redux/reducers/searchReducer";
 import { useDispatch } from "react-redux";
@@ -42,7 +41,7 @@ const SearchInput = ({
             setKeyword(e.target.value)
           }
           placeholder={
-            searchTypeFilter == "users"
+            searchTypeFilter === "users"
               ? "Поиск пользователя..."
               : "Поиск группы..."
           }

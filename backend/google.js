@@ -15,7 +15,6 @@ app.get("/", async (req, res) => {
     spreadsheetId,
     range: "3 year",
   });
-  console.log(data.values);
   await googleSheets.spreadsheets.values.append({
     auth,
     spreadsheetId,

@@ -1,6 +1,3 @@
-import { INavAction, NavConst } from './../types/navbarTypes';
-import { INavState } from "../types/navbarTypes"
-
 export enum EThemeActionTypes{
     CHANGE_THEME="CHANGE_THEME"
 }

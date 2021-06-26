@@ -14,14 +14,25 @@ router.post("/", async (req, res) => {
   try {
     const { name, password } = req.body;
     const user = await User.findOne({ name }).populate("group");
-
+    if (!user) {
+      incorrectData();
+    }
     const groupId = user.teacher ? null : user.group._id;
-    const courses = await Course.find({
-      groups: {
-        $in: [mongoose.Types.ObjectId(groupId)],
-      },
-    });
-    console.log(courses);
+    let courses;
+    if (user.teacher) {
+      courses = await Course.find({
+        teachers: {
+          $in: [mongoose.Types.ObjectId(user._id)],
+        },
+      });
+    } else {
+      courses = await Course.find({
+        groups: {
+          $in: [mongoose.Types.ObjectId(groupId)],
+        },
+      });
+    }
+
     if (user && (await user.matchPasswords(password))) {
       res.json({
         name: user.name,
@@ -34,10 +45,14 @@ router.post("/", async (req, res) => {
         friends: user.friends,
         fullName: user.fullName,
       });
-    } else throw new Error("Неверные данные при входе в систему");
+    } else incorrectData();
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 });
+
+function incorrectData() {
+  throw new Error("Неверные данные при входе в систему");
+}
 
 export default router;

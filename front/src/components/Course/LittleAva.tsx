@@ -9,7 +9,6 @@ const Avatar = styled.div`
   background: ${({ theme }: { theme: ITheme }) => theme.ava};
   color: ${({ theme }: { theme: ITheme }) => theme.avaColor};
   text-align: center;
-  font-weight: bold;
   font-size: 20px;
   line-height: 50px;
   border-radius: 50%;

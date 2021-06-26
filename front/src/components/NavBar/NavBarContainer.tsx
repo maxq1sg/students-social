@@ -2,14 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import NavBar from "./NavBar";
 import bsu from "../../images/bsu.jpg";
-import pant from "../../images/marco-pantani.jpg";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import styles from "./NavBar.module.css";
-import { RootState } from "../../redux/store";
-import { useSelector, useDispatch } from "react-redux";
-import { NavConst } from "../../redux/types/navbarTypes";
-import { IState } from "./Navtypes";
+
 
 const Container = styled.div`
   min-height: 100vh;

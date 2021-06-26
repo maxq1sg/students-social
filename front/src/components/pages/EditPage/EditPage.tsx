@@ -32,7 +32,7 @@ const EditPage = () => {
         type: EAllowedToEditActionType.ALLOWED_TO_EDIT_RESET,
       });
     };
-  }, []);
+  }, [dispatch,idToEdit,idFromLogin]);
   return (
     <>
       {loading ? (

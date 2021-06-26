@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import MyTextInput from "./MyTextInput";
 import { Formik, Form } from "formik";
-import { passwordValidation, userDataValidation } from "./validationSchema";
+import { passwordValidation } from "./validationSchema";
 import { IUser } from "../../../redux/reducers/types";
 import styled from "styled-components";
 import StyledButton from "../../StyledButton/StyledButton";
@@ -11,6 +11,7 @@ import { RootState } from "../../../redux/store";
 import { EEditPasswordActionType } from "../../../redux/reducers/editPasswordReducer";
 
 import Message from "../../Message/Messgae";
+import { EModalActions } from "../../../redux/reducers/modalReducer";
 
 const InputWrapper = styled.div`
   margin: 10px 0;
@@ -24,13 +25,19 @@ const PasswordForms = ({ data }: { data: IUser }) => {
   useEffect(() => {
     if (success) {
       history.push(`/${data.id}`);
+      setTimeout(() => {
+        dispatch({
+          type: EModalActions.OPEN_MODAL,
+          payload: "Изменения внесены!",
+        });
+      }, 300);
     }
-  }, [success]);
+  }, [success, history, dispatch, data.id]);
   useEffect(() => {
     return () => {
       dispatch({ type: EEditPasswordActionType.EDIT_PASSWORD_RESET });
     };
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <Formik
@@ -41,7 +48,6 @@ const PasswordForms = ({ data }: { data: IUser }) => {
         }}
         validationSchema={passwordValidation}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
           dispatch({
             type: EEditPasswordActionType.EDIT_PASSWORD,
             payload: { id: data.id, token: data.token, ...values },
@@ -51,6 +57,7 @@ const PasswordForms = ({ data }: { data: IUser }) => {
         <Form>
           <InputWrapper>
             <MyTextInput
+              autoComplete="on"
               label=""
               name="oldPassword"
               type="password"
@@ -59,6 +66,7 @@ const PasswordForms = ({ data }: { data: IUser }) => {
           </InputWrapper>
           <InputWrapper>
             <MyTextInput
+              autoComplete="on"
               label=""
               name="newPassword"
               type="password"
@@ -67,6 +75,7 @@ const PasswordForms = ({ data }: { data: IUser }) => {
           </InputWrapper>
           <InputWrapper>
             <MyTextInput
+              autoComplete="on"
               label=""
               name="newPasswordConfirm"
               type="password"

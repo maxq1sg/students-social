@@ -1,4 +1,4 @@
-import React, { ChangeEvent, SyntheticEvent, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 // import SingleOption from "./SingleOption";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
@@ -54,14 +54,11 @@ const FilterSelect = ({
         >
           {array.map((item, index) => {
             return (
-              // <SingleOption
-              //   {...{ searchTypeFilter, setSearchTypeFilter }}
-              //   option={item}
-              // />
               <FormControlLabel
                 value={item.value}
                 control={<Radio />}
                 label={item.label}
+                key={index}
               />
             );
           })}

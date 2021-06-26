@@ -1,20 +1,14 @@
 import React, {
   Dispatch,
-  ReactElement,
   SetStateAction,
-  useEffect,
 } from "react";
 import styled from "styled-components";
 import styles from "./NavBar.module.css";
-import { ReactNode } from "react";
+
 import { SvgIconProps } from "@material-ui/core";
-import { IState } from "./Navtypes";
-import { RootState } from "../../redux/store";
-import { useSelector } from "react-redux";
-import { useRef } from "react";
 import "./NavBar.module.css";
 import { NavLink } from "react-router-dom";
-import CustomNavLink from "../CustomNavlink/CustomNavlink";
+
 
 const Li = styled.li`
   margin-bottom: 20px;
@@ -45,10 +39,6 @@ const NavBarItem = ({
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
   const Icon = menuItem.icon;
-  const span = useRef<HTMLSpanElement>(null);
-  useEffect(() => {
-    // span.current?.classList.toggle(".hidden");
-  });
   return (
     <Li
       onClick={() => {

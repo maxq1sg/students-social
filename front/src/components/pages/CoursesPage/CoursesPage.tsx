@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { EGetCoursesActionType } from "../../../redux/reducers/getCoursesRedcuer";
 import { RootState } from "../../../redux/store";
 import SingleCourse from "../../Course/SingleCourse";
-import { IUser, ICourse } from "../../../redux/reducers/types";
+import { ICourse } from "../../../redux/reducers/types";
 import Loader from "../../Loader/Loader";
 import styled from "styled-components";
 import Message from "../../Message/Messgae";
@@ -25,9 +25,6 @@ const CoursesPage = () => {
   }: { courses: ICourse[]; loading: boolean; done: boolean } = useSelector(
     (state: RootState) => state.courses
   );
-  const { user }: { user: IUser | null } = useSelector(
-    (state: RootState) => state.login
-  );
   const { id: pathId } = useParams<{ id: string }>();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -41,7 +38,7 @@ const CoursesPage = () => {
     return () => {
       dispatch({ type: EGetCoursesActionType.COURSES_RESET });
     };
-  }, []);
+  }, [dispatch, pathId]);
   return (
     <div>
       <Helmet>

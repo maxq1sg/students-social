@@ -8,6 +8,7 @@ import { ISingleCourseState } from "../../../redux/reducers/getSingleCourseReduc
 import Loader from "../../Loader/Loader";
 import { Helmet } from "react-helmet";
 import TaskList from "./TaskList";
+import TimeExpire from "./TimeExpire";
 
 const SingleCoursePage = () => {
   const history = useHistory();
@@ -24,13 +25,13 @@ const SingleCoursePage = () => {
       type: ESingleCourseActionType.GET_SINGLE_COURSE,
       payload: { user: user?.id, course: courseId },
     });
-  }, []);
+  }, [courseId, user?.id, dispatch]);
   const location = useLocation();
   useEffect(() => {
     if (error) {
       history.push(`/courses/access/${courseId}`, { from: location.pathname });
     }
-  }, [error]);
+  }, [error, courseId, location.pathname, history]);
 
   return (
     <>
@@ -38,7 +39,12 @@ const SingleCoursePage = () => {
         <title>Курс</title>
       </Helmet>
       {loading && <Loader />}
-      {success && course && <TaskList course={course}/>}
+      {success && course && (
+        <>
+          <TaskList course={course} />
+          <TimeExpire course={course} />
+        </>
+      )}
     </>
   );
 };

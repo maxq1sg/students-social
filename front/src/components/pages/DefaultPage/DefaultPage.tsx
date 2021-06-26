@@ -1,7 +1,7 @@
 import React from "react";
 
 const DefaultPage = () => {
-  return <div>ты че сюда пришел, чепушила?</div>;
+  return <div>Добро пожаловать!</div>;
 };
 
 export default DefaultPage;

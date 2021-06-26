@@ -1,9 +1,5 @@
-import { Form, Formik } from "formik";
 import React from "react";
-import { IUser } from "../../../redux/reducers/types";
-import MyTextInput from "./MyTextInput";
-import * as Yup from "yup";
-import { AppBar, Tabs, Tab, Button } from "@material-ui/core";
+import { AppBar, Tabs, Tab } from "@material-ui/core";
 import TabPanel from "./TabPanel";
 import useStyles from "./styles";
 import NameForms from "./NameForms";
@@ -24,7 +20,7 @@ const FormEditPage = ({ data }) => {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar component={"span"} position="static">
         <Tabs
           value={value}
           onChange={handleChange}
@@ -36,10 +32,10 @@ const FormEditPage = ({ data }) => {
           <Tab disableRipple label="Пароль" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
+      <TabPanel component={"span"} value={value} index={0}>
         <NameForms data={data} />
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      <TabPanel component={"span"} value={value} index={1}>
         <PasswordForms data={data} />
       </TabPanel>
     </>

@@ -1,14 +1,14 @@
 import axios from 'axios';
 import {call, put, takeEvery} from "redux-saga/effects"
-import { IGroup, IUser } from './types';
+import { IGroup} from './types';
 
 export interface IGroupMainInfoState {
     loading: boolean;
     error?: string;
     group: IGroup |null
-    // resultType?: result;
   }
-  export enum EGetGroupMainActionType {
+
+export enum EGetGroupMainActionType {
     GET_GROUP_MAIN_INFO_REQUEST = "GET_GROUP_MAIN_INFO_REQUEST",
     GET_GROUP_MAIN_INFO_SUCCESS = "GET_GROUP_MAIN_INFO_SUCCESS",
     GET_GROUP_MAIN_INFO_FAILURE = "GET_GROUP_MAIN_INFO_FAILURE",

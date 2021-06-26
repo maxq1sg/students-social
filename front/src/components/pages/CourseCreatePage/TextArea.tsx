@@ -1,6 +1,5 @@
-import { FieldHookConfig, useField } from "formik";
+import { useField } from "formik";
 import { ErrorMessage } from "formik";
-import styled from "styled-components";
 import { CustomTextArea } from "./CourseForm";
 import FormErrorMessage from "./FormErrorMessage";
 

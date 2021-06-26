@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useRef, useState } from "react";
+import React, { Dispatch, SetStateAction} from "react";
 import styled from "styled-components";
 import NavBarItem from "./NavBarItem";
 import HomeIcon from "@material-ui/icons/Home";
@@ -9,7 +9,6 @@ import { IUser } from "../../redux/reducers/types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import CreateIcon from "@material-ui/icons/Create";
-import { MenuItem } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import GroupIcon from "@material-ui/icons/Group";
 

@@ -1,9 +1,10 @@
 import React, { SyntheticEvent, useState } from "react";
 import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
-import { RouteComponentProps, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import "./SearchBar.css";
+import { ITheme } from "../DarkMode/themes";
 
 export const StyledInput = styled.input`
   border: none;
@@ -14,18 +15,16 @@ export const StyledInput = styled.input`
   border-radius: 5px;
   padding: 10px 40px 5px;
   font-size: 16px;
+  background: ${({ theme }: { theme: ITheme }) => theme.secondary};
   &::placeholder {
-    color: #8695a0;
+    color: ${({ theme }: { theme: ITheme }) => theme.colorReverse};
   }
+  color: ${({ theme }: { theme: ITheme }) => theme.colorReverse};
 `;
-
-interface IHistoryProps {
-  history: History;
-}
 
 const Input = () => {
   const [searchWord, setSearchWord] = useState<string>("");
-  const history = useHistory()
+  const history = useHistory();
   const submitHandler = (e: SyntheticEvent) => {
     e.preventDefault();
     if (searchWord.trim()) {

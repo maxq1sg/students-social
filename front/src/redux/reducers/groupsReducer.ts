@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {call, put, takeEvery} from "redux-saga/effects"
-import { EUserLogin, IAction, IUserLoginState, IGroupsState, EGroupsActionType, IGroupsAction } from './types';
+import { IGroupsState, EGroupsActionType, IGroupsAction } from './types';
 
 
 export const groupsReducer=(state:IGroupsState={loading:false,groups:[]},action:IGroupsAction)=>{

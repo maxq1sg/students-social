@@ -11,7 +11,6 @@ router.get("/courses", async (req, res) => {
       name: { $regex: new RegExp(`${keyword}`), $options: "i" },
     };
     const courses = await Course.find(query).populate("teachers");
-    console.log(courses);
     res.json(courses);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -21,13 +20,11 @@ router.get("/courses", async (req, res) => {
 router.get("/users", async (req, res) => {
   try {
     const { keyword } = req.query;
-    console.log(keyword);
 
     const query = {
       fullName: { $regex: new RegExp(`${keyword}`), $options: "i" },
     };
     const users = await User.find(query);
-    console.log(users);
     res.json(users);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -36,7 +33,6 @@ router.get("/users", async (req, res) => {
 router.get("/groups", async (req, res) => {
   try {
     const { keyword } = req.query;
-    console.log("in groups", keyword);
 
     const query = {
       profession: { $regex: new RegExp(`${keyword}`), $options: "i" },

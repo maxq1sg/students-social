@@ -37,10 +37,12 @@ const SchedulePage = () => {
         },
       });
     }
-    return ()=>{
-      dispatch({type:EScheduleActionType.RESET_SCHEDULE})
-    }
-  }, []);
+  }, [schedule, dispatch, user?.group?.year, user?.group?.short, user?.token]);
+  useEffect(() => {
+    return () => {
+      dispatch({ type: EScheduleActionType.RESET_SCHEDULE });
+    };
+  }, [dispatch]);
   return (
     <>
       <Helmet>

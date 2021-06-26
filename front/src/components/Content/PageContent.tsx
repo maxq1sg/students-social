@@ -2,10 +2,8 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import CoursesPage from "../pages/CoursesPage/CoursesPage";
-import MainPage from "../pages/MainPage/MainPage";
 import MessagePage from "../pages/MessagesPage/MessagePage";
 import SchedulePage from "../pages/SchedulePage/SchedulePage";
-import SettingsPage from "../pages/SettingsPage/SettingsPage";
 import SearchBar from "../SearchBar/SearchBar";
 import CourseCreatePage from "../pages/CourseCreatePage/CourseCreatePage";
 import SingleCoursePage from "../pages/SingleCoursePage/SingleCoursePage";
@@ -15,10 +13,10 @@ import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import EditPage from "../pages/EditPage/EditPage";
 import UsersSearchPage from "../pages/UserSearchPage/UserSearchPage";
 import GroupInfoPage from "../pages/GroupInfoPage/GroupInfoPage";
-import { ITheme } from "../DarkMode/themes";
 import MainContainer from "../MainContainer";
 import FriendsPage from "../pages/FriendsPage/FriendsPage";
 import DefaultPage from "../pages/DefaultPage/DefaultPage";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 const ContentWrapper = styled.div`
   flex: 1 0;
@@ -43,9 +41,7 @@ const PageContent = () => {
             <Route exact path="/:id([0-9a-fA-F]{24})/edit">
               <EditPage />
             </Route>
-            <Route exact path="/:id/courses">
-              <CoursesPage />
-            </Route>
+            <ProtectedRoute exact path="/:id/courses" component={CoursesPage} />
             <Route exact path="/:id/friends">
               <FriendsPage />
             </Route>

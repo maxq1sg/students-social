@@ -42,7 +42,6 @@ function* singleCourseWorker(action:{type:any,payload:IPayload}){
        const {data} = yield call(fetchSingleCourse,action.payload)
        yield put({type:ESingleCourseActionType.GET_SINGLE_COURSE_SUCCESS,payload:data})        
     } catch (error) {
-        console.log('error',error)
         const message =
         error.response && error.response.data.message
           ? error.response.data.message

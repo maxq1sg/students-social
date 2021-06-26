@@ -1,7 +1,6 @@
 import { ErrorMessage, Field, Form, Formik, FieldArray } from "formik";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import * as Yup from "yup";
 import FormErrorMessage from "./FormErrorMessage";
 import StyledButton from "../../StyledButton/StyledButton";
 import {
@@ -12,7 +11,6 @@ import {
   IGroupsState,
   IteachersState,
   IUser,
-  IUserLoginState,
 } from "../../../redux/reducers/types";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -22,15 +20,11 @@ import {
   TableRow,
   TableCell,
   Paper,
-  makeStyles,
 } from "@material-ui/core";
 import useStyles from "./materialStyles";
-// import { createLanguageServiceSourceFile } from "typescript";
 import { validationSchema } from "./validationSchema";
-// import StyledButton from "../../StyledButton/StyledButton";
 import { useHistory } from "react-router";
 import { RootState } from "../../../redux/store";
-import { ICoursesState } from "../../../redux/reducers/getCoursesRedcuer";
 import Select from "react-select";
 import TextareaAutosize from "react-textarea-autosize";
 import CloseIcon from "@material-ui/icons/Close";
@@ -72,7 +66,7 @@ const CourseForm = () => {
   const {
     groups,
     loading: groupsLoading,
-    error: groupsError,
+    // error: groupsError,
   } = useSelector((state: RootState): IGroupsState => state.groups);
 
   const [groupsState, setGroupsState] = useState<IListState>({
@@ -85,7 +79,7 @@ const CourseForm = () => {
   const {
     teachers,
     loading: teachersLoading,
-    error: teachersError,
+    // error: teachersError,
   } = useSelector((state: RootState): IteachersState => state.teachers);
 
   const [teachersState, setTeacherState] = useState<IListState>({
@@ -98,7 +92,7 @@ const CourseForm = () => {
       type: EGetTechersActionType.GET_TEACHERS,
       payload: user?.token,
     });
-  }, []);
+  }, [dispatch, user?.token]);
   const groupsChangeHandler = (selected: any) => {
     setGroupsState((prev: any) => ({
       ...prev,
@@ -115,12 +109,12 @@ const CourseForm = () => {
         options: teachers,
       }));
     }
-  }, [teachers]);
+  }, [teachers, user?.id]);
   useEffect(() => {
     if (groups.length) {
       setGroupsState((prev) => ({ ...prev, options: groups }));
     }
-  }, [teachers]);
+  }, [groups]);
 
   const teachersChangeHandler = (selected: any) => {
     setTeacherState((prev: any) => ({
@@ -131,14 +125,14 @@ const CourseForm = () => {
   const {
     course,
     loading: createCourseLoading,
-    error: createCourseError,
+    // error: createCourseError,
   } = useSelector((state: RootState): ICreatedCourse => state.createdCourse);
 
   useEffect(() => {
     if (course) {
       history.push(`/courses/${course._id}`);
     }
-  }, [course]);
+  }, [course, history]);
   const classes = useStyles();
   return (
     <Formik

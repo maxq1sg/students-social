@@ -16,4 +16,3 @@ width:100%;
 }
 `
 
-const a ="box-shadow: 0 0 20px rgba(0, 0, 0, 0.15)"

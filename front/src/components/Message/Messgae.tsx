@@ -1,6 +1,5 @@
 import React from "react";
 import MuiAlert from "@material-ui/lab/Alert";
-import { makeStyles } from "@material-ui/core";
 import styled from "styled-components";
 
 type severity = "error" | "warning" | "info" | "success";

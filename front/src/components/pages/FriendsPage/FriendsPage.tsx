@@ -28,7 +28,7 @@ const FriendsPage = () => {
     return () => {
       dispatch({ type: EGetFriendsActionType.FRIENDS_RESET });
     };
-  }, []);
+  }, [dispatch,userId]);
 
   return (
     <>
@@ -42,7 +42,7 @@ const FriendsPage = () => {
           {"На данный момент нет друзей!"}
         </Message>
       ) : (
-        friends?.map((friend) => <UserSearchResult user={friend} />)
+        friends?.map((friend) => <UserSearchResult key={friend._id} user={friend} />)
       )}
     </>
   );

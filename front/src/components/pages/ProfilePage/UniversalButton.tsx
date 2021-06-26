@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useCallback } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -20,12 +21,9 @@ enum ButtonTitle {
 const UniversalButton = ({ user }: { user: IUser | null }) => {
   const history = useHistory();
   const { id: pathId } = useParams<{ id: string }>();
-  const {
-    loading: friendsLoading,
-    error,
-    areFriends,
-    done,
-  }: IaddToFriendsState = useSelector((state: RootState) => state.friends);
+  const { loading: friendsLoading, done }: IaddToFriendsState = useSelector(
+    (state: RootState) => state.friends
+  );
   const { user: loginedUser }: { user: IUser | null } = useSelector(
     (state: RootState) => state.login
   );
@@ -41,7 +39,7 @@ const UniversalButton = ({ user }: { user: IUser | null }) => {
   const [title, setTitle] = useState(getInitialTitle());
 
   const toggleTitle = () => {
-    if (title == ButtonTitle.add) {
+    if (title === ButtonTitle.add) {
       setTitle(ButtonTitle.remove);
     } else {
       setTitle(ButtonTitle.add);
@@ -53,14 +51,12 @@ const UniversalButton = ({ user }: { user: IUser | null }) => {
 
   useEffect(() => {
     if (done) {
-      console.log("shoul");
       toggleTitle();
     }
   }, [done]);
 
   const first = user?._id;
   const second = loginedUser?.id;
-  console.log(first, second);
   const isMyProfile = pathId === second;
   const dispatch = useDispatch();
   const clickEditHandler = () => {

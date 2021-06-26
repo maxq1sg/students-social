@@ -36,8 +36,8 @@ export interface ICourse{
     groups:any[],
     name:string,
     password:string,
-    beginDate:Date,
-    endDate:Date,
+    beginDate:string,
+    endDate:string,
     description:string,
     tasks:any[]
 }
